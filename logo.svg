@@ -11,5 +11,5 @@
   <circle cx="42" cy="17.5" r="2.6" fill="#ffffff"/>
   <!-- Wordmark -->
   <text x="72" y="36" font-family="'Playfair Display', Georgia, serif" font-size="28" font-weight="600" fill="#1A1A1A" letter-spacing="2">VVT</text>
-  <text x="73" y="54" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10.5" font-weight="500" fill="#0284C7" letter-spacing="5">STUDIO</text>
+  <text x="73" y="54" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10.5" font-weight="500" fill="#0284C7" letter-spacing="5">DIGITAL</text>
 </svg>
