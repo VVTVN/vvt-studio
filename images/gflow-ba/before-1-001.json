@@ -1,0 +1,12 @@
+{
+  "jobId": "before-1",
+  "type": "image",
+  "prompt": "Blurry low-quality photo of a glass spice jar on a messy cluttered factory table, bad lighting, dull colors, old amateur product photo",
+  "ratio": "4:3",
+  "requestedOutputs": 1,
+  "quality": "original",
+  "downloadedAt": "2026-08-21T04:43:13.442Z",
+  "source": "google-flow-browser",
+  "flowUrl": "https://labs.google/fx/vi/tools/flow/project/86276ded-8e96-436c-b6a9-1bc8c720cd02",
+  "status": "downloaded"
+}

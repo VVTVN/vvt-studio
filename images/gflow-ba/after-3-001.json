@@ -1,0 +1,12 @@
+{
+  "jobId": "after-3",
+  "type": "image",
+  "prompt": "Professional studio product photo of a large glass jar, soft studio lighting, clean light gray gradient background, high detail, commercial advertising quality",
+  "ratio": "4:3",
+  "requestedOutputs": 1,
+  "quality": "original",
+  "downloadedAt": "2026-08-21T04:53:23.398Z",
+  "source": "google-flow-browser",
+  "flowUrl": "https://labs.google/fx/vi/tools/flow/project/7e300a93-581b-4795-914e-c4679e0ab7c9",
+  "status": "downloaded"
+}

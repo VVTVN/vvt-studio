@@ -1,0 +1,12 @@
+{
+  "jobId": "before-3",
+  "type": "image",
+  "prompt": "Dark blurry photo of a large glass jar on a dusty warehouse floor, bad white balance, old amateur photo",
+  "ratio": "4:3",
+  "requestedOutputs": 1,
+  "quality": "original",
+  "downloadedAt": "2026-08-21T04:51:58.712Z",
+  "source": "google-flow-browser",
+  "flowUrl": "https://labs.google/fx/vi/tools/flow/project/ad10a745-0f08-473e-8ee0-e66d64c9a669",
+  "status": "downloaded"
+}

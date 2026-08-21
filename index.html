@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VVT Studio — Web Design & Revamp | Làm mới website chuyên nghiệp</title>
+    <meta name="description" content="VVT Studio chuyên thiết kế lại website cũ, xử lý ảnh studio, nội dung chuẩn SEO. Gói trọn gói 4.9 triệu, bàn giao 3-5 ngày, bảo hành 12 tháng.">
+    <link rel="icon" type="image/svg+xml" href="logo-mark.svg">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FBFBFA; color: #1A1A1A; }
+        .font-serif-luxury { font-family: 'Playfair Display', serif; }
+        ::selection { background: #1A1A1A; color: #fff; }
+
+        /* ---------- Smooth reveal animations ---------- */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
+        .reveal.visible { opacity: 1; transform: none; }
+        .reveal-d1 { transition-delay: .1s; } .reveal-d2 { transition-delay: .2s; }
+        .reveal-d3 { transition-delay: .3s; } .reveal-d4 { transition-delay: .4s; }
+        @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+        /* Hero entrance */
+        .hero-in { opacity: 0; transform: translateY(20px); animation: heroUp .9s cubic-bezier(.16,1,.3,1) forwards; }
+        .hero-in-1 { animation-delay: .15s; } .hero-in-2 { animation-delay: .3s; } .hero-in-3 { animation-delay: .45s; } .hero-in-4 { animation-delay: .6s; }
+        @keyframes heroUp { to { opacity: 1; transform: none; } }
+
+        /* Before/After slider */
+        .ba-wrap { position: relative; overflow: hidden; border-radius: 1rem; }
+        .ba-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+        .ba-after { clip-path: inset(0 0 0 var(--pos, 50%)); }
+        .ba-handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px; background: #fff; transform: translateX(-1px); box-shadow: 0 0 12px rgba(0,0,0,.25); }
+        .ba-handle::after { content: '⇄'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1A1A1A; color: #fff; width: 36px; height: 36px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+        .ba-label { position: absolute; top: 12px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-radius: 9999px; backdrop-filter: blur(4px); }
+        .ba-before-tag { left: 12px; background: rgba(0,0,0,.55); color: #fff; }
+        .ba-after-tag { right: 12px; background: #1A1A1A; color: #fff; }
+
+        /* Screenshot cards (5 dấu hiệu) */
+        .sign-card { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s; }
+        .sign-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -25px rgba(0,0,0,.25); }
+        .sign-img { transition: transform .8s cubic-bezier(.16,1,.3,1); }
+        .sign-card:hover .sign-img { transform: scale(1.04); }
+        .sign-badge { position: absolute; top: 10px; left: 10px; z-index: 10; }
+
+        /* Template mockup */
+        .mock { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s; }
+        .mock:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -25px rgba(0,0,0,.2); }
+
+        /* Marquee ticker for problems */
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .ticker { animation: ticker 30s linear infinite; }
+        .ticker:hover { animation-play-state: paused; }
+
+        .btn-dark { transition: all .35s cubic-bezier(.16,1,.3,1); }
+        .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(0,0,0,.4); }
+
+        /* Decorative blobs + soft section gradients */
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+        .bg-soft-blue { background: linear-gradient(180deg, #FFFFFF 0%, #F2F8FF 100%); }
+        .bg-soft-warm { background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F2 100%); }
+        .grad-text-red { background: linear-gradient(90deg, #EF4444, #F97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ================= HEADER ================= -->
+    <header class="fixed top-0 left-0 w-full bg-[#FBFBFA]/90 backdrop-blur-md z-50 border-b border-neutral-200/60">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- THAY: tên thương hiệu agency -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="logo-mark.svg" alt="VVT Studio" class="w-10 h-10">
+                <span class="text-xl font-serif-luxury tracking-wider font-semibold uppercase">VVT<span class="text-sky-500"> Studio</span></span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-xs uppercase tracking-widest text-neutral-600 font-medium">
+                <a href="#van-de" class="hover:text-black transition">Vấn Đề</a>
+                <a href="#dich-vu" class="hover:text-black transition">Dịch Vụ</a>
+                <a href="#giao-dien" class="hover:text-black transition">Giao Diện</a>
+                <a href="#demo" class="hover:text-black transition">Demo</a>
+                <a href="#bang-gia" class="hover:text-black transition">Bảng Giá</a>
+                <a href="#lien-he" class="hover:text-black transition">Liên Hệ</a>
+            </nav>
+            <!-- THAY: số Zalo nhận báo giá -->
+            <a href="https://zalo.me/0582283454" target="_blank" class="btn-dark text-xs uppercase tracking-widest bg-sky-500 text-white px-5 py-2.5 rounded-full hover:bg-sky-600">
+                Nhận Báo Giá
+            </a>
+            <button id="menuBtn" class="md:hidden text-neutral-700 text-xl">☰</button>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-[#FBFBFA] border-t border-neutral-200/60 px-6 py-4 space-y-3 text-sm">
+            <a href="#van-de" class="block">Vấn Đề</a>
+            <a href="#dich-vu" class="block">Dịch Vụ</a>
+            <a href="#giao-dien" class="block">Giao Diện</a>
+            <a href="#demo" class="block">Demo</a>
+            <a href="#bang-gia" class="block">Bảng Giá</a>
+            <a href="#lien-he" class="block">Liên Hệ</a>
+        </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 max-w-7xl mx-auto">
+        <div class="blob w-[420px] h-[420px] bg-sky-200 -top-24 -left-32 opacity-40"></div>
+        <div class="blob w-[380px] h-[380px] bg-red-200 top-40 -right-24 opacity-40"></div>
+        <div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div class="max-w-3xl">
+                <span class="hero-in hero-in-1 text-xs uppercase tracking-[0.25em] text-red-600 font-medium block mb-4">Web Design & Revamp Studio</span>
+                <h1 class="hero-in hero-in-2 text-4xl md:text-6xl font-serif-luxury leading-[1.12] font-normal mb-8">
+                    Website cũ đang âm thầm<br>làm bạn <em class="italic grad-text-red">mất khách?</em>
+                </h1>
+                <p class="hero-in hero-in-3 text-neutral-600 text-sm md:text-base leading-relaxed max-w-xl mb-10">
+                    Mỗi ngày, khách hàng bấm vào quảng cáo của bạn rồi rời đi vì web cũ, chậm, vỡ trên điện thoại. Chúng tôi làm mới toàn diện — ảnh studio, nội dung SEO, giao diện hiện đại — bạn không cần chuẩn bị bất cứ tài liệu nào.
+                </p>
+                <div class="hero-in hero-in-4 flex flex-col sm:flex-row gap-4">
+                    <!-- THAY: số Zalo -->
+                    <a href="https://zalo.me/0582283454" target="_blank" class="btn-dark bg-sky-500 text-white text-sm uppercase tracking-widest px-8 py-4 rounded-full hover:bg-sky-600 text-center">
+                        Tư Vấn Miễn Phí qua Zalo
+                    </a>
+                    <a href="#van-de" class="text-sm uppercase tracking-widest border border-neutral-300 px-8 py-4 rounded-full hover:border-neutral-900 transition text-center">
+                        Web của bạn có bị vậy không?
+                    </a>
+                </div>
+            </div>
+            <!-- Video trước/sau revamp (THAY: video do gflow tạo) -->
+            <div class="hero-in hero-in-3 relative">
+                <div class="rounded-3xl overflow-hidden shadow-2xl border border-neutral-200/60 aspect-video bg-neutral-100 relative">
+                    <video src="images/hero-revamp.mp4" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
+                    <span class="absolute top-4 left-4 bg-black/50 backdrop-blur text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Trước</span>
+                    <span class="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Sau Revamp</span>
+                </div>
+                <div class="absolute -bottom-5 left-6 bg-white rounded-2xl shadow-xl border border-neutral-100 px-5 py-3 flex items-center gap-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[11px] uppercase tracking-widest text-neutral-600 font-medium">Video demo: Trước & Sau</span>
+                </div>
+            </div>
+        </div>
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-16 md:mt-24 max-w-3xl border-t border-neutral-200/80 pt-10">
+            <div class="hero-in hero-in-2">
+                <p class="text-3xl md:text-4xl font-serif-luxury"><span data-count="4.9" data-decimals="1">0</span><span class="text-red-500">tr</span></p>
+                <p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-2">Trọn gói, thanh toán 1 lần</p>
+            </div>
+            <div class="hero-in hero-in-3">
+                <p class="text-3xl md:text-4xl font-serif-luxury">3–<span data-count="5">0</span><span class="text-red-500"> ngày</span></p>
+                <p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-2">Bàn giao hoàn chỉnh</p>
+            </div>
+            <div class="hero-in hero-in-4">
+                <p class="text-3xl md:text-4xl font-serif-luxury"><span data-count="12">0</span><span class="text-red-500"> tháng</span></p>
+                <p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-2">Bảo hành & hỗ trợ kỹ thuật</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ticker: lời kể của khách hàng khi gặp web cũ -->
+    <div class="border-y border-neutral-200/60 bg-white py-4 overflow-hidden">
+        <div class="ticker flex whitespace-nowrap text-xs uppercase tracking-widest text-neutral-500 gap-12 w-max">
+            <span class="text-red-500">"Web tải lâu quá em bỏ đi rồi"</span><span>"Bấm vào quảng cáo mà không dám tin tưởng"</span><span class="text-sky-600">"Trên điện thoại vỡ hết chữ"</span><span>"Không tìm được nút báo giá đâu cả"</span><span class="text-red-500">"Trông cũ quá, sợ không uy tín"</span><span class="text-red-500">"Web tải lâu quá em bỏ đi rồi"</span><span>"Bấm vào quảng cáo mà không dám tin tưởng"</span><span class="text-sky-600">"Trên điện thoại vỡ hết chữ"</span><span>"Không tìm được nút báo giá đâu cả"</span><span class="text-red-500">"Trông cũ quá, sợ không uy tín"</span>
+        </div>
+    </div>
+
+    <!-- ================= GIAO DIỆN MẪU ================= -->
+    <section id="giao-dien" class="py-20 md:py-28 bg-soft-blue px-6 max-w-full">
+        <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 reveal">
+            <div>
+                <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">Bộ Sưu Tập</span>
+                <h2 class="text-3xl md:text-5xl font-serif-luxury">6 Giao Diện Mẫu<br>Cho Từng <em class="italic grad-text-red">Ngành Nghề</em></h2>
+            </div>
+            <p class="text-xs uppercase tracking-widest text-neutral-500 mt-4 md:mt-0">Chọn phong cách → chúng tôi dựng theo</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <a href="../giao-dien-mau/01-xuong-san-xuat/index.html" target="_blank" class="mock reveal reveal-d1 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden cursor-pointer group">
+                <div class="h-44 overflow-hidden relative">
+                    <img src="images/mocks/mock-01.jpg" alt="Giao diện mẫu" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium mb-1">Xưởng Sản Xuất · B2B</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Thể hiện quy mô nhà máy, năng lực gia công — dành cho xưởng gỗ, bao bì, cơ khí.</p>
+                </div>
+            </a>
+
+            <a href="../giao-dien-mau/02-bat-dong-san/index.html" target="_blank" class="mock reveal reveal-d2 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden cursor-pointer group">
+                <div class="h-44 overflow-hidden relative">
+                    <img src="images/mocks/mock-02.jpg" alt="Giao diện mẫu" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium mb-1">Bất Động Sản · Dự Án</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Landing dự án cao cấp — gallery ảnh, vị trí, tiện ích, bảng giá căn hộ.</p>
+                </div>
+            </a>
+
+            <a href="../giao-dien-mau/03-doanh-nghiep-dich-vu/index.html" target="_blank" class="mock reveal reveal-d3 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden cursor-pointer group">
+                <div class="h-44 overflow-hidden relative">
+                    <img src="images/mocks/mock-03.jpg" alt="Giao diện mẫu" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium mb-1">Doanh Nghiệp · Dịch Vụ</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Trang giới thiệu uy tín, dịch vụ, đội ngũ — tạo niềm tin với khách hàng lớn.</p>
+                </div>
+            </a>
+
+            <a href="../giao-dien-mau/04-landing-page/index.html" target="_blank" class="mock reveal reveal-d1 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden cursor-pointer group">
+                <div class="h-44 overflow-hidden relative">
+                    <img src="images/mocks/mock-04.jpg" alt="Giao diện mẫu" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium mb-1">Landing Page Quảng Cáo</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Tối ưu chuyển đổi cho Google Ads / Facebook — tập trung nút gọi & Zalo.</p>
+                </div>
+            </a>
+
+            <a href="../giao-dien-mau/05-nha-hang/index.html" target="_blank" class="mock reveal reveal-d2 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden cursor-pointer group">
+                <div class="h-44 overflow-hidden relative">
+                    <img src="images/mocks/mock-05.jpg" alt="Giao diện mẫu" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium mb-1">Nhà Hàng & Café</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Ấm cúng, đậm chất F&B — thực đơn đẹp, đặt bàn nhanh qua Zalo.</p>
+                </div>
+            </a>
+
+            <a href="../giao-dien-mau/06-thoi-trang/index.html" target="_blank" class="mock reveal reveal-d3 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden cursor-pointer group">
+                <div class="h-44 overflow-hidden relative">
+                    <img src="images/mocks/mock-06.jpg" alt="Giao diện mẫu" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium mb-1">Thời Trang & Bán Lẻ</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Sang trọng, tối giản — nổi bật sản phẩm, tăng đơn hàng online.</p>
+                </div>
+            </a>
+        </div>
+        <p class="reveal text-center text-xs uppercase tracking-widest text-neutral-400 mt-12">Giao diện được thiết kế riêng theo ngành nghề của bạn — không dùng theme có sẵn</p>
+        </div>
+    </section>
+
+    
+
+        <!-- ================= DEMO TRƯỚC/SAU ================= -->
+    <section id="demo" class="py-20 md:py-28 border-t border-neutral-200/80 bg-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 reveal">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">Kết Quả Thật</span>
+                    <h2 class="text-3xl md:text-5xl font-serif-luxury">Ảnh <em class="italic grad-text-red">Trước & Sau</em> Khi<br>Xử Lý Studio</h2>
+                </div>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 mt-4 md:mt-0">Xem kết quả xử lý ảnh sản phẩm</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="reveal reveal-d1">
+                    <div class="rounded-2xl overflow-hidden border border-neutral-100 shadow-sm bg-white p-2">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="relative">
+                                <span class="absolute top-2 left-2 bg-black/60 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full">Trước</span>
+                                <img src="images/before-a.jpg" alt="Trước xử lý" class="w-full aspect-[4/3] object-cover rounded-xl">
+                            </div>
+                            <div class="relative">
+                                <span class="absolute top-2 right-2 bg-emerald-500 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full">Sau</span>
+                                <img src="images/after-a.jpg" alt="Sau xử lý" class="w-full aspect-[4/3] object-cover rounded-xl">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-3">Hủ Gia Vị 750ml · Ảnh gốc vs AI Studio</p>
+                </div>
+                <div class="reveal reveal-d1">
+                    <div class="rounded-2xl overflow-hidden border border-neutral-100 shadow-sm bg-white p-2">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="relative">
+                                <span class="absolute top-2 left-2 bg-black/60 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full">Trước</span>
+                                <img src="images/before-b.jpg" alt="Trước xử lý" class="w-full aspect-[4/3] object-cover rounded-xl">
+                            </div>
+                            <div class="relative">
+                                <span class="absolute top-2 right-2 bg-emerald-500 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full">Sau</span>
+                                <img src="images/after-b.jpg" alt="Sau xử lý" class="w-full aspect-[4/3] object-cover rounded-xl">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-3">Ly Thủy Tinh Trung · Ảnh gốc vs AI Studio</p>
+                </div>
+                <div class="reveal reveal-d1">
+                    <div class="rounded-2xl overflow-hidden border border-neutral-100 shadow-sm bg-white p-2">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="relative">
+                                <span class="absolute top-2 left-2 bg-black/60 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full">Trước</span>
+                                <img src="images/before-c.jpg" alt="Trước xử lý" class="w-full aspect-[4/3] object-cover rounded-xl">
+                            </div>
+                            <div class="relative">
+                                <span class="absolute top-2 right-2 bg-emerald-500 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full">Sau</span>
+                                <img src="images/after-c.jpg" alt="Sau xử lý" class="w-full aspect-[4/3] object-cover rounded-xl">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-3">Hủ Ngâm Rượu 4L · Ảnh gốc vs AI Studio</p>
+                </div>
+            </div>
+            <p class="reveal text-center text-xs text-neutral-400 mt-10 max-w-xl mx-auto leading-relaxed">* Hình ảnh minh hoạ kết quả xử lý ảnh sản phẩm chuẩn studio.</p>
+        </div>
+    </section>
+
+<!-- ================= DỊCH VỤ ================= -->
+    <section id="dich-vu" class="py-20 md:py-28 border-t border-neutral-200/80 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 reveal">
+            <div>
+                <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">Dịch Vụ</span>
+                <h2 class="text-3xl md:text-5xl font-serif-luxury">4 Hạng Mục Trong Gói<br>Nâng Cấp <em class="italic grad-text-red">Toàn Diện</em></h2>
+            </div>
+            <p class="text-xs uppercase tracking-widest text-neutral-500 mt-4 md:mt-0">Làm mới A–Z, khách chỉ việc nhận web mới</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="reveal reveal-d1 border-t-2 border-neutral-900 pt-6">
+                <p class="text-xs uppercase tracking-widest text-neutral-500 mb-3"><span class="text-red-500 font-semibold">01</span> · Đồ Hoạ</p>
+                <h3 class="text-lg font-medium mb-3">Xử Lý Ảnh Studio</h3>
+                <ul class="text-sm text-neutral-600 space-y-2 leading-relaxed">
+                    <li>• Bóc tách, khử mờ, tăng độ nét từng sản phẩm</li>
+                    <li>• Cân chỉnh ánh sáng, dựng phông nền studio chuyên nghiệp</li>
+                    <li>• Lọc bỏ ảnh lỗi, thừa trên hệ thống cũ</li>
+                </ul>
+            </div>
+            <div class="reveal reveal-d2 border-t-2 border-neutral-900 pt-6">
+                <p class="text-xs uppercase tracking-widest text-neutral-500 mb-3"><span class="text-red-500 font-semibold">02</span> · Nội Dung</p>
+                <h3 class="text-lg font-medium mb-3">Biên Tập Chuẩn SEO</h3>
+                <ul class="text-sm text-neutral-600 space-y-2 leading-relaxed">
+                    <li>• Viết lại tiêu đề & mô tả chuyên nghiệp</li>
+                    <li>• Tách bảng thông số kỹ thuật rõ ràng</li>
+                    <li>• Sắp xếp lại danh mục sản phẩm khoa học</li>
+                </ul>
+            </div>
+            <div class="reveal reveal-d3 border-t-2 border-neutral-900 pt-6">
+                <p class="text-xs uppercase tracking-widest text-neutral-500 mb-3"><span class="text-red-500 font-semibold">03</span> · Giao Diện</p>
+                <h3 class="text-lg font-medium mb-3">Dựng Web Mới</h3>
+                <ul class="text-sm text-neutral-600 space-y-2 leading-relaxed">
+                    <li>• Giao diện hiện đại, chuẩn mọi dòng điện thoại</li>
+                    <li>• Tốc độ tải nhanh, tối ưu cho quảng cáo</li>
+                    <li>• Nút gọi Hotline & Zalo 1-chạm chốt đơn</li>
+                </ul>
+            </div>
+            <div class="reveal reveal-d4 border-t-2 border-neutral-900 pt-6">
+                <p class="text-xs uppercase tracking-widest text-neutral-500 mb-3"><span class="text-red-500 font-semibold">04</span> · Bàn Giao</p>
+                <h3 class="text-lg font-medium mb-3">Nhập Liệu & Kiểm Thử</h3>
+                <ul class="text-sm text-neutral-600 space-y-2 leading-relaxed">
+                    <li>• Đăng tải toàn bộ ảnh & nội dung mới lên web</li>
+                    <li>• Kiểm tra hiển thị trên mọi thiết bị</li>
+                    <li>• Bàn giao tài khoản quản trị, hướng dẫn sử dụng</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= QUY TRÌNH ================= -->
+    <section class="py-20 md:py-28 bg-soft-warm px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="max-w-2xl mb-14 reveal">
+                <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">Quy Trình</span>
+                <h2 class="text-3xl md:text-5xl font-serif-luxury">Chúng Tôi Lo Từ A–Z,<br>Bạn Chỉ Việc <em class="italic grad-text-red">Duyệt & Nhận</em></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div class="reveal reveal-d1">
+                    <p class="font-serif-luxury text-6xl text-red-500/20 mb-2">1</p>
+                    <div class="w-10 h-1 bg-red-500 rounded-full mb-4"></div>
+                    <h3 class="font-medium mb-2">Khảo Sát & Thu Thập</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Chúng tôi tự lấy toàn bộ sản phẩm, ảnh và thông tin từ web cũ của bạn — bạn không cần soạn lại bất cứ tài liệu nào.</p>
+                </div>
+                <div class="reveal reveal-d2">
+                    <p class="font-serif-luxury text-6xl text-red-500/20 mb-2">2</p>
+                    <div class="w-10 h-1 bg-red-500 rounded-full mb-4"></div>
+                    <h3 class="font-medium mb-2">Thiết Kế & Phục Chế</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Đội ngũ thiết kế xử lý ảnh studio, biên tập nội dung chuẩn SEO và dựng giao diện mới theo ngành nghề của bạn.</p>
+                </div>
+                <div class="reveal reveal-d3">
+                    <p class="font-serif-luxury text-6xl text-red-500/20 mb-2">3</p>
+                    <div class="w-10 h-1 bg-red-500 rounded-full mb-4"></div>
+                    <h3 class="font-medium mb-2">Duyệt Mẫu</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Bạn xem bản demo, chọn phong cách ưng ý, chúng tôi chỉnh sửa theo yêu cầu đến khi vừa lòng.</p>
+                </div>
+                <div class="reveal reveal-d4">
+                    <p class="font-serif-luxury text-6xl text-red-500/20 mb-2">4</p>
+                    <div class="w-10 h-1 bg-red-500 rounded-full mb-4"></div>
+                    <h3 class="font-medium mb-2">Bàn Giao & Bảo Hành</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Kiểm thử trên mọi thiết bị, bàn giao tài khoản và hỗ trợ kỹ thuật miễn phí 12 tháng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 5 DẤU HIỆU (kèm ảnh thật) ================= -->
+    <section id="van-de" class="py-20 md:py-28 bg-soft-blue px-6 max-w-full">
+        <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 reveal">
+            <div>
+                <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">Chẩn Đoán Miễn Phí</span>
+                <h2 class="text-3xl md:text-5xl font-serif-luxury">5 Dấu Hiệu Web Cũ<br>Đang <em class="italic grad-text-red">Đuổi Khách</em> Của Bạn</h2>
+            </div>
+            <p class="text-xs uppercase tracking-widest text-neutral-500 mt-4 md:mt-0">Ảnh chụp thật từ website doanh nghiệp đang gặp vấn đề</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+
+            <!-- DẤU HIỆU 1 -->
+            <div class="sign-card reveal reveal-d1 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <div class="bg-neutral-100 h-6 flex items-center gap-1 px-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-300"></span><span class="w-1.5 h-1.5 rounded-full bg-amber-300"></span><span class="w-1.5 h-1.5 rounded-full bg-green-300"></span>
+                        <span class="ml-1 text-[8px] text-neutral-400 bg-white rounded px-2 py-0.5 flex-1 max-w-[170px] truncate">huthuytinh.vn</span>
+                    </div>
+                    <span class="sign-badge bg-red-600 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">⚠️ Không an toàn</span>
+                    <img src="images/signs/sign-https-desktop.png" alt="Web không có HTTPS" class="sign-img w-full aspect-[16/10] object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-lg mb-2">1. Không có HTTPS</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed mb-3">Trình duyệt dán cảnh báo <strong class="text-neutral-900">"Không an toàn"</strong> ngay trên web.</p>
+                    <p class="text-xs text-neutral-400 italic leading-relaxed border-t border-neutral-100 pt-3">Khách trải nghiệm: bấm quảng cáo → thấy cảnh báo đỏ → nghi ngờ lừa đảo → rời đi, tiền ads mất.</p>
+                </div>
+            </div>
+
+            <!-- DẤU HIỆU 2 -->
+            <div class="sign-card reveal reveal-d2 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <span class="sign-badge bg-amber-500 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">🐢 Tải chậm</span>
+                    <div class="w-full aspect-[16/10] bg-neutral-50 flex items-center justify-center relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-10 h-10 border-[3px] border-neutral-200 border-t-neutral-900 rounded-full animate-spin"></div>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 space-y-2">
+                            <div class="h-3 w-3/4 bg-neutral-200 rounded animate-pulse"></div>
+                            <div class="h-3 w-1/2 bg-neutral-200 rounded animate-pulse"></div>
+                            <div class="h-2 w-24 bg-neutral-300 rounded animate-pulse"></div>
+                        </div>
+                        <span class="absolute top-10 text-[10px] text-neutral-400 uppercase tracking-widest">Đang tải... 4.2 giây</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-lg mb-2">2. Tải trang quá chậm</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed mb-3">Web mất <strong class="text-neutral-900">3–6 giây</strong> mới hiện nội dung.</p>
+                    <p class="text-xs text-neutral-400 italic leading-relaxed border-t border-neutral-100 pt-3">Khách trải nghiệm: chờ mãi không thấy gì → tưởng web hỏng → thoát, quay lại Google chọn đối thủ.</p>
+                </div>
+            </div>
+
+            <!-- DẤU HIỆU 3 -->
+            <div class="sign-card reveal reveal-d3 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <div class="bg-neutral-100 h-6 flex items-center gap-1 px-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-300"></span><span class="w-1.5 h-1.5 rounded-full bg-amber-300"></span><span class="w-1.5 h-1.5 rounded-full bg-green-300"></span>
+                        <span class="ml-1 text-[8px] text-neutral-400 bg-white rounded px-2 py-0.5 flex-1 max-w-[170px] truncate">dongphucdieplong.com.vn</span>
+                    </div>
+                    <span class="sign-badge bg-red-600 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">📱 Vỡ mobile</span>
+                    <img src="images/signs/sign-mobile-mobile.png" alt="Web vỡ trên điện thoại" class="sign-img w-full aspect-[16/10] object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-lg mb-2">3. Vỡ trên điện thoại</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed mb-3">Hơn 80% khách xem bằng điện thoại, web lại <strong class="text-neutral-900">không co giãn</strong>.</p>
+                    <p class="text-xs text-neutral-400 italic leading-relaxed border-t border-neutral-100 pt-3">Khách trải nghiệm: phải phóng to, kéo ngang từng chữ → mệt mỏi → bỏ đi giữa chừng.</p>
+                </div>
+            </div>
+
+            <!-- DẤU HIỆU 4 -->
+            <div class="sign-card reveal reveal-d1 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <div class="bg-neutral-100 h-6 flex items-center gap-1 px-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-300"></span><span class="w-1.5 h-1.5 rounded-full bg-amber-300"></span><span class="w-1.5 h-1.5 rounded-full bg-green-300"></span>
+                        <span class="ml-1 text-[8px] text-neutral-400 bg-white rounded px-2 py-0.5 flex-1 max-w-[170px] truncate">kiemdinhquocte.vn</span>
+                    </div>
+                    <span class="sign-badge bg-neutral-900 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">🕰️ Lỗi thời</span>
+                    <img src="images/signs/sign-cu-desktop.png" alt="Giao diện web lỗi thời" class="sign-img w-full aspect-[16/10] object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-lg mb-2">4. Giao diện thời 2010s</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed mb-3">Bố cục cũ kỹ, màu sắc nhợt nhạt — <strong class="text-neutral-900">không tôn được năng lực</strong> của bạn.</p>
+                    <p class="text-xs text-neutral-400 italic leading-relaxed border-t border-neutral-100 pt-3">Khách trải nghiệm: khách B2B đánh giá năng lực qua web → giao diện cũ làm giảm uy tín dù xưởng bạn rất mạnh.</p>
+                </div>
+            </div>
+
+            <!-- DẤU HIỆU 5 -->
+            <div class="sign-card reveal reveal-d2 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <div class="bg-neutral-100 h-6 flex items-center gap-1 px-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-300"></span><span class="w-1.5 h-1.5 rounded-full bg-amber-300"></span><span class="w-1.5 h-1.5 rounded-full bg-green-300"></span>
+                        <span class="ml-1 text-[8px] text-neutral-400 bg-white rounded px-2 py-0.5 flex-1 max-w-[170px] truncate">thuytinh368.vn</span>
+                    </div>
+                    <span class="sign-badge bg-amber-500 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">🔤 Lỗi chữ</span>
+                    <img src="images/signs/sign-loi-font-desktop.png" alt="Lỗi font chữ tiếng Việt" class="sign-img w-full aspect-[16/10] object-cover object-top">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-lg mb-2">5. Lỗi font, chữ vỡ loạn</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed mb-3">Tiếng Việt hiển thị thành <strong class="text-neutral-900">ký tự loạn (&Ocirc;, &iacute;...)</strong> không đọc được.</p>
+                    <p class="text-xs text-neutral-400 italic leading-relaxed border-t border-neutral-100 pt-3">Khách trải nghiệm: vào web đọc không được chữ → tưởng web lỗi hỏng → mất niềm tin tức thì.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="sign-card reveal reveal-d3 bg-neutral-900 text-white rounded-3xl p-8 flex flex-col justify-between">
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">Web của bạn có dấu hiệu nào?</p>
+                    <h3 class="text-2xl font-serif-luxury leading-snug mb-4">Gửi link web — nhận <em class="italic">bản chẩn đoán miễn phí</em></h3>
+                    <p class="text-sm text-neutral-300 leading-relaxed">Đội ngũ VVT Studio kiểm tra tốc độ, bảo mật, hiển thị điện thoại và gửi bạn bản đánh giá + đề xuất cụ thể trong 24 giờ.</p>
+                </div>
+                <a href="https://zalo.me/0582283454" target="_blank" class="mt-6 inline-block text-xs uppercase tracking-widest bg-red-500 text-white px-6 py-4 rounded-full hover:bg-red-600 transition text-center">
+                    Nhận Chẩn Đoán Miễn Phí →
+                </a>
+            </div>
+        </div>
+        </div>
+    </section>
+
+            <!-- ================= BẢNG GIÁ ================= -->
+    <section id="bang-gia" class="py-20 md:py-28 border-t border-neutral-200/80 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-6 reveal">
+                <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">Bảng Giá</span>
+                <h2 class="text-3xl md:text-5xl font-serif-luxury">Gói Nâng Cấp Website <em class="italic grad-text-red">Trọn Gói</em></h2>
+                <p class="text-sm text-neutral-500 mt-4">Không phát sinh chi phí — thanh toán 1 lần, làm đến khi bạn hài lòng</p>
+            </div>
+            <!-- Khuyến mãi KH mới -->
+            <div class="reveal max-w-3xl mx-auto mb-12 bg-red-50 border border-red-200 rounded-2xl px-6 py-4 text-center">
+                <p class="text-sm text-red-700 font-medium">🎁 <strong>Khách hàng mới:</strong> tặng thêm <strong>1 tháng cập nhật 10 sản phẩm MIỄN PHÍ</strong> khi ký gói trọn gói</p>
+            </div>
+
+            <!-- GÓI TRỌN GÓI -->
+            <div class="reveal bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden max-w-2xl mx-auto">
+                <div class="bg-neutral-900 text-white px-8 py-8 text-center">
+                    <p class="text-xs uppercase tracking-widest text-neutral-400 mb-2">Trọn Gói · Ưu Đãi Chuyển Đổi Số</p>
+                    <p class="text-5xl font-serif-luxury">4.900.000<span class="text-lg text-neutral-400">đ</span></p>
+                    <p class="text-xs text-red-400 mt-2 line-through">Giá trị thực tế 7.500.000đ</p>
+                </div>
+                <div class="px-8 py-8">
+                    <ul class="space-y-3 text-sm text-neutral-700">
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Xử lý & phục hồi toàn bộ hình ảnh sản phẩm (phông nền studio, khử mờ, cân sáng)</li>
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Biên tập nội dung, tiêu đề & mô tả chuẩn SEO B2B</li>
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Dựng giao diện mới hiện đại, chuẩn điện thoại, tải nhanh</li>
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Tích hợp nút gọi Hotline & Zalo 1-chạm chốt đơn</li>
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Nhập liệu toàn bộ sản phẩm & kiểm thử đa thiết bị</li>
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Bàn giao tài khoản quản trị + hướng dẫn sử dụng</li>
+                        <li class="flex gap-3"><span class="text-neutral-900">✓</span> Bảo hành & hỗ trợ kỹ thuật 12 tháng</li>
+                    </ul>
+                    <div class="border-t border-neutral-100 mt-6 pt-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                        <p class="text-xs text-neutral-500 leading-relaxed">⏱️ Hoàn thiện trong <strong class="text-neutral-900">3–5 ngày</strong><br>Bạn <strong class="text-neutral-900">không cần</strong> chuẩn bị tài liệu</p>
+                        <a href="https://zalo.me/0582283454" target="_blank" class="btn-dark bg-sky-500 text-white text-xs uppercase tracking-widest px-8 py-4 rounded-full hover:bg-sky-600 whitespace-nowrap">Nhận Báo Giá qua Zalo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GÓI DUY TRÌ HÀNG NĂM -->
+            <div class="text-center mt-20 mb-10 reveal">
+                <span class="text-xs uppercase tracking-widest text-red-600 font-medium block mb-2">★ Điểm quan trọng nhất</span>
+                <h2 class="text-3xl md:text-4xl font-serif-luxury">Duy Trì Website <em class="italic grad-text-red">Hàng Năm</em></h2>
+                <p class="text-sm text-neutral-500 mt-3 max-w-xl mx-auto">Website là tài sản — duy trì để không bao giờ cũ lại, luôn nhanh & an toàn</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <div class="reveal bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden flex flex-col">
+                    <div class="bg-neutral-900 text-white px-6 py-6 text-center">
+                        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-2">Cơ Bản · Chỉ Duy Trì</p>
+                        <p class="text-4xl font-serif-luxury">1.500.000<span class="text-sm text-neutral-400">đ/năm</span></p>
+                    </div>
+                    <div class="px-6 py-6 flex-1">
+                        <ul class="space-y-3 text-sm text-neutral-700">
+                            <li class="flex gap-3"><span>✓</span> Sao lưu dữ liệu định kỳ</li>
+                            <li class="flex gap-3"><span>✓</span> Theo dõi bảo mật & tốc độ</li>
+                            <li class="flex gap-3"><span>✓</span> Hỗ trợ kỹ thuật cơ bản</li>
+                            <li class="flex gap-3"><span>✓</span> Hỗ trợ gia hạn tên miền/SSL</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <a href="https://zalo.me/0582283454" target="_blank" class="block text-center border border-neutral-900 text-neutral-900 text-xs uppercase tracking-widest px-6 py-3.5 rounded-full hover:bg-neutral-900 hover:text-white transition">Đăng Ký</a>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-d1 bg-white rounded-3xl border-2 border-sky-400 shadow-lg overflow-hidden flex flex-col relative">
+                    <span class="absolute top-4 right-4 bg-sky-500 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Phổ Biến</span>
+                    <div class="bg-neutral-900 text-white px-6 py-6 text-center">
+                        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-2">Tiêu Chuẩn</p>
+                        <p class="text-4xl font-serif-luxury">2.500.000<span class="text-sm text-neutral-400">đ/năm</span></p>
+                    </div>
+                    <div class="px-6 py-6 flex-1">
+                        <ul class="space-y-3 text-sm text-neutral-700">
+                            <li class="flex gap-3"><span>✓</span> Mọi thứ gói Cơ Bản</li>
+                            <li class="flex gap-3"><span>✓</span> Cập nhật <strong>5 sản phẩm/tháng</strong></li>
+                            <li class="flex gap-3"><span>✓</span> Sao lưu hằng tuần</li>
+                            <li class="flex gap-3"><span>✓</span> Tư vấn cải tiến website</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <a href="https://zalo.me/0582283454" target="_blank" class="block text-center bg-sky-500 text-white text-xs uppercase tracking-widest px-6 py-3.5 rounded-full hover:bg-sky-600 transition">Đăng Ký</a>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-d2 bg-white rounded-3xl border border-neutral-100 shadow-sm overflow-hidden flex flex-col">
+                    <div class="bg-neutral-900 text-white px-6 py-6 text-center">
+                        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-2">Chuyên Nghiệp</p>
+                        <p class="text-4xl font-serif-luxury">3.900.000<span class="text-sm text-neutral-400">đ/năm</span></p>
+                    </div>
+                    <div class="px-6 py-6 flex-1">
+                        <ul class="space-y-3 text-sm text-neutral-700">
+                            <li class="flex gap-3"><span>✓</span> Mọi thứ gói Tiêu Chuẩn</li>
+                            <li class="flex gap-3"><span>✓</span> Cập nhật <strong>10 sản phẩm/tháng</strong></li>
+                            <li class="flex gap-3"><span>✓</span> Hỗ trợ kỹ thuật <strong>ưu tiên</strong></li>
+                            <li class="flex gap-3"><span>✓</span> Tư vấn cải tiến mỗi quý</li>
+                        </ul>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <a href="https://zalo.me/0582283454" target="_blank" class="block text-center bg-red-500 text-white text-xs uppercase tracking-widest px-6 py-3.5 rounded-full hover:bg-red-600 transition">Đăng Ký</a>
+                    </div>
+                </div>
+            </div>
+            <p class="reveal text-center text-xs text-neutral-400 mt-8">💡 Khách hàng ký gói trọn gói được <strong>ưu đãi 20%</strong> phí duy trì năm đầu tiên — liên hệ để biết thêm</p>
+        </div>
+    </section>
+
+<!-- ================= LIÊN HỆ ================= -->
+    <section id="lien-he" class="relative py-20 md:py-28 border-t border-neutral-200/80 bg-neutral-900 text-white px-6 overflow-hidden">
+        <div class="blob w-[400px] h-[400px] bg-sky-600 -top-20 -right-24 opacity-25"></div>
+        <div class="blob w-[320px] h-[320px] bg-red-500 bottom-0 -left-20 opacity-20"></div>
+        <div class="relative max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="reveal">
+                <span class="text-xs uppercase tracking-widest text-neutral-400 font-medium block mb-2">Liên Hệ</span>
+                <h2 class="text-3xl md:text-5xl font-serif-luxury mb-6">Gửi Web Cũ Của Bạn —<br>Nhận Phân Tích <em class="italic grad-text-red">Miễn Phí</em></h2>
+                <p class="text-sm text-neutral-300 leading-relaxed mb-8">Chúng tôi kiểm tra tốc độ, giao diện điện thoại, bảo mật và gửi bạn bản đánh giá + đề xuất cụ thể trong vòng 24 giờ. Hoàn toàn miễn phí, không ràng buộc.</p>
+                <!-- THAY: số điện thoại & Zalo -->
+                <a href="tel:0582283454" class="inline-block text-2xl font-medium mb-3 text-sky-400 hover:text-sky-300 transition">📞 0582 283 454</a>
+                <p class="text-xs text-neutral-400">Hotline · Zalo · (7:30 – 21:30 hằng ngày)</p>
+            </div>
+            <div class="reveal reveal-d2 bg-white/5 border border-white/10 rounded-3xl p-8">
+                <p class="text-sm uppercase tracking-widest text-neutral-400 mb-6">Hoặc nhắn Zalo trực tiếp</p>
+                <a href="https://zalo.me/0582283454" target="_blank" class="flex items-center justify-center gap-3 bg-emerald-500 text-white px-6 py-5 rounded-2xl hover:bg-emerald-600 transition">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.04 2 11.02c0 2.88 1.5 5.46 3.84 7.15-.08.64-.4 2.2-.42 2.44 0 .3.24.55.55.55.24 0 1.7-.9 2.5-1.42.95.31 2 .5 3.53.5 5.52 0 10-4.04 10-9.02S17.52 2 12 2z"/></svg>
+                    <span class="font-medium">Chat Zalo — 0582 283 454</span>
+                </a>
+                <div class="mt-6 space-y-3 text-sm text-neutral-300">
+                    <p>✅ Phản hồi trong vài phút (giờ hành chính)</p>
+                    <p>✅ Tư vấn phân tích web miễn phí, không ràng buộc</p>
+                    <p>✅ Báo giá minh bạch, 1 lần duy nhất, không phát sinh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-neutral-950 text-neutral-500 px-6 py-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- THAY: tên thương hiệu -->
+            <p class="text-sm tracking-widest uppercase">VVT Studio<span class="text-neutral-400">.</span> — Web Design & Revamp</p>
+            <p class="text-xs">© 2026 VVT Studio. Thiết kế lại website chuyên nghiệp cho doanh nghiệp Việt.</p>
+        </div>
+    </footer>
+
+    <!-- ================= NÚT ZALO NỔI ================= -->
+    <!-- THAY: số Zalo -->
+    <a href="https://zalo.me/0582283454" target="_blank" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition-all transform hover:-translate-y-1">
+        <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
+        <span class="text-xs font-medium uppercase tracking-wider">Tư Vấn Zalo</span>
+    </a>
+
+    <script>
+        // ---------- Mobile menu ----------
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // ---------- Scroll reveal (mượt) ----------
+        const revealEls = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            revealEls.forEach((el) => io.observe(el));
+        } else {
+            revealEls.forEach((el) => el.classList.add('visible'));
+        }
+
+        // ---------- Count-up stats ----------
+        const counters = document.querySelectorAll('[data-count]');
+        const animateCount = (el) => {
+            const target = parseFloat(el.dataset.count);
+            const decimals = parseInt(el.dataset.decimals || '0', 10);
+            const dur = 1400; const start = performance.now();
+            const step = (now) => {
+                const t = Math.min((now - start) / dur, 1);
+                const eased = 1 - Math.pow(1 - t, 4);
+                el.textContent = (target * eased).toFixed(decimals).replace('.', ',');
+                if (t < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+        if ('IntersectionObserver' in window) {
+            const cio = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach((el) => cio.observe(el));
+        } else {
+            counters.forEach(animateCount);
+        }
+
+        // ---------- Before/After slider ----------
+        document.querySelectorAll('[data-ba]').forEach((wrap) => {
+            const update = (x) => {
+                const r = wrap.getBoundingClientRect();
+                let pct = ((x - r.left) / r.width) * 100;
+                pct = Math.max(5, Math.min(95, pct));
+                wrap.style.setProperty('--pos', pct + '%');
+            };
+            wrap.addEventListener('mousemove', (e) => update(e.clientX));
+            wrap.addEventListener('touchmove', (e) => update(e.touches[0].clientX), { passive: true });
+            wrap.addEventListener('mouseenter', () => wrap.style.cursor = 'ew-resize');
+        });
+    </script>
+</body>
+</html>

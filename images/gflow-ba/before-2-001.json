@@ -1,0 +1,12 @@
+{
+  "jobId": "before-2",
+  "type": "image",
+  "prompt": "Blurry dark photo of a drinking glass on a cluttered shelf, poor lighting, old amateur photo",
+  "ratio": "4:3",
+  "requestedOutputs": 1,
+  "quality": "original",
+  "downloadedAt": "2026-08-21T04:49:03.139Z",
+  "source": "google-flow-browser",
+  "flowUrl": "https://labs.google/fx/vi/tools/flow/project/e45868fa-29e3-4252-a46e-97cd10e00c4b",
+  "status": "downloaded"
+}

@@ -1,0 +1,12 @@
+{
+  "jobId": "after-1",
+  "type": "image",
+  "prompt": "Professional studio product photography of a glass spice jar, softbox lighting, clean elegant warm beige gradient background, sharp focus, luxury commercial advertising photo",
+  "ratio": "4:3",
+  "requestedOutputs": 1,
+  "quality": "original",
+  "downloadedAt": "2026-08-21T04:47:34.880Z",
+  "source": "google-flow-browser",
+  "flowUrl": "https://labs.google/fx/vi/tools/flow/project/dd3be711-5b9f-4167-9c60-b959f25b4796",
+  "status": "downloaded"
+}
