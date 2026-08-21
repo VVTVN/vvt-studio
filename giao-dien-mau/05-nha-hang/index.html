@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         MẪU 5 · NHÀ HÀNG / CAFÉ
+         CÁCH DÙNG: sửa [THAY] trong CFG, thay ảnh.
+    ============================================================ -->
+    <title>[THAY: Tên quán] — Nhà hàng / Café</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+        const CFG = {
+            ten: '[THAY: Tên quán]',
+            slogan: '[THAY: Slogan]',
+            sdt: '[THAY: SĐT]',
+            zalo: '[THAY: SĐT Zalo]',
+            diaChi: '[THAY: Địa chỉ]',
+            gioMo: '[THAY: Giờ mở cửa]',
+            monAn: [
+                '[THAY: Món 1]', '[THAY: Món 2]', '[THAY: Món 3]'
+            ]
+        };
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #171310; color: #F5F0E8; }
+        .font-serif-luxury { font-family: 'Playfair Display', serif; }
+        .gold { color: #D4AF6A; }
+        .card { transition: transform .5s, box-shadow .5s; }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -25px rgba(212,175,106,.3); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 w-full bg-[#171310]/95 backdrop-blur border-b border-white/10 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-serif-luxury text-xl tracking-wide italic"><span class="gold">✦</span> <span id="navTen">Quán</span></a>
+            <nav class="hidden md:flex gap-8 text-xs uppercase tracking-widest text-neutral-400">
+                <a href="#thuc-don" class="hover:text-white">Thực Đơn</a>
+                <a href="#khong-gian" class="hover:text-white">Không Gian</a>
+                <a href="#lien-he" class="hover:text-white">Đặt Bàn</a>
+            </nav>
+            <a id="navZalo" href="#" target="_blank" class="text-xs uppercase tracking-widest bg-[#D4AF6A] text-[#171310] px-5 py-2.5 rounded-full font-semibold hover:bg-[#e3c27e] transition">Đặt Bàn</a>
+        </div>
+    </header>
+
+    <section class="pt-36 pb-20 px-6 max-w-6xl mx-auto text-center">
+        <p class="gold text-xs uppercase tracking-[0.35em] mb-5">Nghệ Thuật Ẩm Thực</p>
+        <h1 class="font-serif-luxury italic text-4xl md:text-6xl mb-4" id="heroTen">[Tên quán]</h1>
+        <p class="text-neutral-400 max-w-xl mx-auto mb-8" id="heroSlogan">[Slogan — hương vị, không gian, cảm xúc]</p>
+        <div class="flex gap-4 justify-center flex-col sm:flex-row">
+            <a id="heroZalo" href="#" target="_blank" class="bg-[#D4AF6A] text-[#171310] px-8 py-4 text-sm uppercase tracking-widest rounded-full font-semibold hover:bg-[#e3c27e] transition">Đặt Bàn Ngay</a>
+            <a href="#thuc-don" class="border border-white/20 px-8 py-4 text-sm uppercase tracking-widest rounded-full hover:border-[#D4AF6A] transition">Xem Thực Đơn</a>
+        </div>
+    </section>
+
+    <section id="thuc-don" class="py-16 bg-[#1E1915] px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-serif-luxury italic text-3xl mb-8 text-center">Thực Đơn Đặc Sắc</h2>
+            <div class="grid md:grid-cols-3 gap-6" id="menuGrid"></div>
+        </div>
+    </section>
+
+    <section id="khong-gian" class="py-16 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="font-serif-luxury italic text-3xl mb-6">Không Gian</h2>
+            <p class="text-neutral-400 max-w-2xl mx-auto mb-8">[THAY: Mô tả không gian quán — view, âm nhạc, phong cách trang trí]</p>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="h-36 rounded-2xl bg-[#2A241D] flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh 1</div>
+                <div class="h-36 rounded-2xl bg-[#2A241D] flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh 2</div>
+                <div class="h-36 rounded-2xl bg-[#2A241D] flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh 3</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lien-he" class="py-16 bg-[#1E1915] px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="font-serif-luxury italic text-3xl mb-4">Đặt Bàn & Ưu Đãi</h2>
+            <p class="text-neutral-400 mb-6">[THAY: Ưu đãi đặc biệt / combo sinh nhật / giảm giá giờ vàng]</p>
+            <a id="contactZalo" href="#" target="_blank" class="inline-block bg-[#D4AF6A] text-[#171310] px-10 py-4 rounded-full text-sm font-semibold hover:bg-[#e3c27e] transition">💬 Đặt Bàn qua Zalo</a>
+            <p class="mt-5 text-sm text-neutral-400" id="contactInfo"></p>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 text-center text-xs text-neutral-600">
+        <p id="footerTen"></p>
+    </footer>
+
+    <a id="floatZalo" href="#" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition">
+        <span class="text-xs font-medium uppercase tracking-wider">💬 Zalo</span>
+    </a>
+
+    <script>
+        document.getElementById('navTen').textContent = CFG.ten;
+        document.getElementById('heroTen').textContent = CFG.ten;
+        document.getElementById('heroSlogan').textContent = CFG.slogan;
+        document.title = CFG.ten + ' — ' + CFG.slogan;
+        document.getElementById('contactInfo').textContent = '📞 ' + CFG.sdt + '  ·  🕐 ' + CFG.gioMo + '  ·  📍 ' + CFG.diaChi;
+        document.getElementById('footerTen').textContent = '© 2026 ' + CFG.ten;
+        const zu = 'https://zalo.me/' + CFG.zalo;
+        ['navZalo','heroZalo','contactZalo','floatZalo'].forEach(id => document.getElementById(id).href = zu);
+        const grid = document.getElementById('menuGrid');
+        CFG.monAn.forEach((m, i) => {
+            const div = document.createElement('div');
+            div.className = 'card rounded-2xl overflow-hidden bg-[#171310]';
+            div.innerHTML = `<div class="h-32 bg-[#2A241D] flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh món ${i + 1}</div><div class="p-5"><h3 class="font-serif-luxury italic text-lg mb-1">${m}</h3><p class="text-xs text-neutral-500">[THAY: Mô tả + giá]</p></div>`;
+            grid.appendChild(div);
+        });
+    </script>
+</body>
+</html>

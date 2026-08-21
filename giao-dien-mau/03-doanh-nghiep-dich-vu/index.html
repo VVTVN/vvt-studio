@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         MẪU 3 · DOANH NGHIỆP / DỊCH VỤ (hiện đại)
+         CÁCH DÙNG: sửa [THAY] trong CFG, thay ảnh.
+    ============================================================ -->
+    <title>[THAY: Tên công ty] — Dịch vụ chuyên nghiệp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        const CFG = {
+            ten: '[THAY: Tên công ty]',
+            slogan: '[THAY: Slogan]',
+            moTa: '[THAY: Mô tả dịch vụ chính]',
+            sdt: '[THAY: SĐT]',
+            zalo: '[THAY: SĐT Zalo]',
+            diaChi: '[THAY: Địa chỉ]',
+            dichVu: [
+                '[THAY: Dịch vụ 1]', '[THAY: Dịch vụ 2]', '[THAY: Dịch vụ 3]', '[THAY: Dịch vụ 4]'
+            ]
+        };
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F8FAFC; color: #0F172A; }
+        .glass-nav { background: rgba(255,255,255,.75); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(15,23,42,.06); }
+        .card { transition: transform .5s, box-shadow .5s; }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -25px rgba(37,99,235,.35); }
+        .grad-accent { background: linear-gradient(135deg, #3B82F6, #8B5CF6); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 w-full glass-nav z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-extrabold text-lg tracking-tight"><span class="grad-accent text-transparent bg-clip-text">◆</span> <span id="navTen">Công Ty</span></a>
+            <nav class="hidden md:flex gap-8 text-xs uppercase tracking-widest text-neutral-500">
+                <a href="#dich-vu" class="hover:text-slate-900">Dịch Vụ</a>
+                <a href="#vi-sao" class="hover:text-slate-900">Vì Sao</a>
+                <a href="#lien-he" class="hover:text-slate-900">Liên Hệ</a>
+            </nav>
+            <a id="navZalo" href="#" target="_blank" class="grad-accent text-white text-xs uppercase tracking-widest px-5 py-2.5 rounded-full font-semibold hover:opacity-90 transition">Tư Vấn</a>
+        </div>
+    </header>
+
+    <!-- HERO gradient nhẹ -->
+    <section class="relative pt-36 pb-20 px-6 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-violet-50"></div>
+        <div class="absolute -top-24 -right-24 w-[400px] h-[400px] bg-blue-200/40 rounded-full blur-[90px]"></div>
+        <div class="absolute -bottom-24 -left-24 w-[400px] h-[400px] bg-violet-200/40 rounded-full blur-[90px]"></div>
+        <div class="relative max-w-4xl mx-auto text-center">
+            <p class="grad-accent text-transparent bg-clip-text text-xs uppercase tracking-[0.3em] font-bold mb-5">Đối Tác Tin Cậy</p>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-5" id="heroTen">[Tên công ty]</h1>
+            <p class="text-slate-500 max-w-xl mx-auto mb-8 text-lg" id="heroMoTa">[Mô tả dịch vụ — chuyên nghiệp, tận tâm, đúng cam kết]</p>
+            <div class="flex gap-4 justify-center flex-col sm:flex-row">
+                <a id="heroZalo" href="#" target="_blank" class="grad-accent text-white px-8 py-4 text-sm uppercase tracking-widest rounded-full font-semibold hover:opacity-90 transition text-center">Nhận Tư Vấn</a>
+                <a href="#dich-vu" class="bg-white border border-slate-200 px-8 py-4 text-sm uppercase tracking-widest rounded-full hover:border-slate-400 transition text-center shadow-sm">Xem Dịch Vụ</a>
+            </div>
+            <!-- Số liệu nổi -->
+            <div class="grid grid-cols-3 gap-4 mt-14 max-w-2xl mx-auto">
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-slate-100"><p class="text-2xl font-extrabold grad-accent text-transparent bg-clip-text">10+</p><p class="text-[11px] uppercase tracking-widest text-slate-500 mt-1">Năm kinh nghiệm</p></div>
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-slate-100"><p class="text-2xl font-extrabold grad-accent text-transparent bg-clip-text">500+</p><p class="text-[11px] uppercase tracking-widest text-slate-500 mt-1">Khách hàng</p></div>
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-slate-100"><p class="text-2xl font-extrabold grad-accent text-transparent bg-clip-text">98%</p><p class="text-[11px] uppercase tracking-widest text-slate-500 mt-1">Hài lòng</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DỊCH VỤ -->
+    <section id="dich-vu" class="py-16 px-6 max-w-7xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight mb-10 text-center">Dịch Vụ Của Chúng Tôi</h2>
+        <div class="grid md:grid-cols-4 gap-6" id="serviceGrid"></div>
+    </section>
+
+    <!-- VÌ SAO -->
+    <section id="vi-sao" class="py-16 bg-white px-6">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight mb-4">Vì Sao Chọn Chúng Tôi?</h2>
+                <ul class="space-y-4 text-sm text-slate-600">
+                    <li class="flex gap-3"><span class="grad-accent text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shrink-0 mt-0.5">✓</span> [THAY: Cam kết 1 — kinh nghiệm, đội ngũ chuyên môn]</li>
+                    <li class="flex gap-3"><span class="grad-accent text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shrink-0 mt-0.5">✓</span> [THAY: Cam kết 2 — tiến độ, minh bạch chi phí]</li>
+                    <li class="flex gap-3"><span class="grad-accent text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shrink-0 mt-0.5">✓</span> [THAY: Cam kết 3 — bảo hành, hỗ trợ hậu mãi]</li>
+                    <li class="flex gap-3"><span class="grad-accent text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shrink-0 mt-0.5">✓</span> [THAY: Cam kết 4 — giá trị thực mang lại]</li>
+                </ul>
+            </div>
+            <div class="grad-accent rounded-3xl p-8 text-white">
+                <p class="text-lg font-semibold mb-2">Sẵn sàng hỗ trợ bạn?</p>
+                <p class="text-sm text-white/80 mb-5">[THAY: Lời mời liên hệ ngắn]</p>
+                <a id="midZalo" href="#" target="_blank" class="inline-block bg-white text-slate-900 px-6 py-3 rounded-full text-sm font-semibold hover:bg-slate-100 transition">💬 Chat Zalo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIÊN HỆ -->
+    <section id="lien-he" class="py-16 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight mb-4">Liên Hệ Hợp Tác</h2>
+            <p class="text-slate-500 mb-6">[THAY: Cam kết phản hồi nhanh, tư vấn miễn phí]</p>
+            <a id="contactZalo" href="#" target="_blank" class="grad-accent text-white px-10 py-4 rounded-full text-sm font-semibold hover:opacity-90 transition">Chat Zalo Ngay</a>
+            <p class="mt-5 text-sm text-slate-500" id="contactInfo"></p>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 text-center text-xs text-slate-400">
+        <p id="footerTen"></p>
+    </footer>
+
+    <a id="floatZalo" href="#" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition">
+        <span class="text-xs font-medium uppercase tracking-wider">💬 Zalo</span>
+    </a>
+
+    <script>
+        document.getElementById('navTen').textContent = CFG.ten;
+        document.getElementById('heroTen').textContent = CFG.ten;
+        document.getElementById('heroMoTa').textContent = CFG.moTa;
+        document.title = CFG.ten + ' — ' + CFG.slogan;
+        document.getElementById('contactInfo').textContent = '📞 ' + CFG.sdt + '  ·  📍 ' + CFG.diaChi;
+        document.getElementById('footerTen').textContent = '© 2026 ' + CFG.ten;
+        const zu = 'https://zalo.me/' + CFG.zalo;
+        ['navZalo','heroZalo','midZalo','contactZalo','floatZalo'].forEach(id => document.getElementById(id).href = zu);
+        const grid = document.getElementById('serviceGrid');
+        CFG.dichVu.forEach((dv, i) => {
+            const div = document.createElement('div');
+            div.className = 'card bg-white rounded-3xl p-6 shadow-sm border border-slate-100';
+            div.innerHTML = `<p class="text-xs font-bold grad-accent text-transparent bg-clip-text mb-2">DỊCH VỤ 0${i + 1}</p><h3 class="font-semibold mb-2">${dv}</h3><p class="text-xs text-slate-500">[THAY: Mô tả ngắn cho dịch vụ này]</p>`;
+            grid.appendChild(div);
+        });
+    </script>
+</body>
+</html>

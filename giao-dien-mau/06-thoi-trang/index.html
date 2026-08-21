@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         MẪU 6 · THỜI TRANG / BÁN LẺ (editorial)
+         CÁCH DÙNG: sửa [THAY] trong CFG, thay ảnh.
+    ============================================================ -->
+    <title>[THAY: Tên thương hiệu] — Thời trang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <script>
+        const CFG = {
+            ten: '[THAY: Tên thương hiệu]',
+            slogan: '[THAY: Slogan]',
+            sdt: '[THAY: SĐT]',
+            zalo: '[THAY: SĐT Zalo]',
+            diaChi: '[THAY: Địa chỉ]',
+            sanPham: [
+                '[THAY: Sản phẩm 1]', '[THAY: Sản phẩm 2]', '[THAY: Sản phẩm 3]', '[THAY: Sản phẩm 4]'
+            ]
+        };
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FAF8F5; color: #191714; }
+        .font-serif-luxury { font-family: 'Playfair Display', serif; }
+        .card img { transition: transform .8s cubic-bezier(.16,1,.3,1); }
+        .card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 w-full bg-[#FAF8F5]/95 backdrop-blur border-b border-neutral-200/60 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-serif-luxury text-xl tracking-[0.2em] uppercase"><span id="navTen">Thương Hiệu</span></a>
+            <nav class="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] text-neutral-500">
+                <a href="#bo-suu-tap" class="hover:text-black">Bộ Sưu Tập</a>
+                <a href="#cua-hang" class="hover:text-black">Cửa Hàng</a>
+                <a href="#lien-he" class="hover:text-black">Liên Hệ</a>
+            </nav>
+            <a id="navZalo" href="#" target="_blank" class="text-[11px] uppercase tracking-[0.2em] border border-neutral-900 px-5 py-2 rounded-full hover:bg-neutral-900 hover:text-white transition">Mua Ngay</a>
+        </div>
+    </header>
+
+    <!-- HERO editorial: chữ lớn, khoảng trắng nhiều -->
+    <section class="pt-44 pb-24 px-6 max-w-5xl mx-auto text-center">
+        <p class="text-[11px] uppercase tracking-[0.4em] text-neutral-400 mb-6">Bộ Sưu Tập Mới · 2026</p>
+        <h1 class="font-serif-luxury italic text-5xl md:text-7xl leading-[1.1] mb-6" id="heroTen">[Tên thương hiệu]</h1>
+        <p class="text-neutral-500 max-w-md mx-auto mb-10 font-light" id="heroSlogan">[Slogan — tinh tế, tối giản, đẳng cấp]</p>
+        <a id="heroZalo" href="#" target="_blank" class="inline-block bg-neutral-900 text-white px-10 py-4 text-[11px] uppercase tracking-[0.25em] rounded-full hover:bg-black transition">Khám Phá Bộ Sưu Tập</a>
+    </section>
+
+    <!-- BỘ SƯU TẬP -->
+    <section id="bo-suu-tap" class="py-16 px-6 max-w-7xl mx-auto">
+        <h2 class="font-serif-luxury text-3xl mb-10 text-center">Bộ Sưu Tập</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="productGrid"></div>
+    </section>
+
+    <!-- CỬA HÀNG -->
+    <section id="cua-hang" class="py-16 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="font-serif-luxury text-3xl mb-4">Ghé Thăm Cửa Hàng</h2>
+            <p class="text-neutral-500 mb-6 text-sm" id="storeLine"></p>
+            <a id="contactZalo" href="#" target="_blank" class="inline-block bg-neutral-900 text-white px-10 py-4 text-[11px] uppercase tracking-[0.25em] rounded-full hover:bg-black transition">Liên Hệ Đặt Hàng</a>
+        </div>
+    </section>
+
+    <footer class="py-10 px-6 text-center text-xs text-neutral-400 border-t border-neutral-200/60">
+        <p id="footerTen"></p>
+    </footer>
+
+    <a id="floatZalo" href="#" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition">
+        <span class="text-xs font-medium uppercase tracking-wider">💬 Zalo</span>
+    </a>
+
+    <script>
+        document.getElementById('navTen').textContent = CFG.ten;
+        document.getElementById('heroTen').textContent = CFG.ten;
+        document.getElementById('heroSlogan').textContent = CFG.slogan;
+        document.title = CFG.ten + ' — ' + CFG.slogan;
+        document.getElementById('storeLine').textContent = '📍 ' + CFG.diaChi + '  ·  📞 ' + CFG.sdt;
+        document.getElementById('footerTen').textContent = '© 2026 ' + CFG.ten;
+        const zu = 'https://zalo.me/' + CFG.zalo;
+        ['navZalo','heroZalo','contactZalo','floatZalo'].forEach(id => document.getElementById(id).href = zu);
+        const grid = document.getElementById('productGrid');
+        CFG.sanPham.forEach((sp, i) => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `<div class="h-52 bg-neutral-200/70 flex items-center justify-center text-neutral-400 text-[10px] uppercase tracking-widest overflow-hidden">Ảnh ${i + 1}</div><div class="py-3"><h3 class="text-sm font-medium">${sp}</h3><p class="text-xs text-neutral-400 mt-0.5">[THAY: Giá]</p></div>`;
+            grid.appendChild(div);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         MẪU 2 · BẤT ĐỘNG SẢN / DỰ ÁN
+         CÁCH DÙNG: sửa [THAY] trong CFG, thay ảnh trong images/.
+    ============================================================ -->
+    <title>[THAY: Tên dự án] — Bất động sản cao cấp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        const CFG = {
+            ten: '[THAY: Tên dự án / chủ đầu tư]',
+            slogan: '[THAY: Slogan]',
+            viTri: '[THAY: Vị trí dự án]',
+            sdt: '[THAY: SĐT]',
+            zalo: '[THAY: SĐT Zalo]',
+            moTa: '[THAY: Mô tả ngắn về dự án]'
+        };
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B1120; color: #F1F5F9; }
+        .font-serif-luxury { font-family: 'Playfair Display', serif; }
+        .glass { background: rgba(255,255,255,.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); }
+        .card { transition: transform .5s, box-shadow .5s; }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(56,189,248,.4); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 w-full z-50 glass">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-serif-luxury text-xl tracking-wide font-semibold"><span class="text-sky-400">◆</span> <span id="navTen">Dự Án</span></a>
+            <nav class="hidden md:flex gap-8 text-xs uppercase tracking-widest text-neutral-300">
+                <a href="#du-an" class="hover:text-white">Dự Án</a>
+                <a href="#vi-tri" class="hover:text-white">Vị Trí</a>
+                <a href="#tien-ich" class="hover:text-white">Tiện Ích</a>
+                <a href="#lien-he" class="hover:text-white">Liên Hệ</a>
+            </nav>
+            <a id="navZalo" href="#" target="_blank" class="text-xs uppercase tracking-widest bg-sky-400 text-slate-900 px-5 py-2.5 rounded-full font-semibold hover:bg-sky-300 transition">Đặt Lịch Xem</a>
+        </div>
+    </header>
+
+    <!-- HERO tối cao cấp -->
+    <section class="relative pt-40 pb-24 px-6 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-900 via-[#0B1120] to-[#0B1120]"></div>
+        <div class="absolute -top-32 -right-32 w-[500px] h-[500px] bg-sky-500/20 rounded-full blur-[100px]"></div>
+        <div class="relative max-w-4xl mx-auto text-center">
+            <p class="text-sky-400 text-xs uppercase tracking-[0.35em] mb-5">Căn Hộ · Biệt Thự · Đất Nền</p>
+            <h1 class="font-serif-luxury text-4xl md:text-6xl leading-tight mb-5" id="heroTen">[Tên dự án]</h1>
+            <p class="text-neutral-400 max-w-xl mx-auto mb-8" id="heroMoTa">[Mô tả dự án — vị trí, tiềm năng]</p>
+            <!-- Thanh tìm kiếm -->
+            <div class="glass rounded-2xl p-2 flex flex-col md:flex-row gap-2 max-w-2xl mx-auto">
+                <input type="text" placeholder="Chọn khu vực..." class="bg-transparent px-4 py-3 text-sm placeholder-neutral-500 outline-none flex-1" value="[THAY: Khu vực]">
+                <input type="text" placeholder="Loại hình" class="bg-transparent px-4 py-3 text-sm placeholder-neutral-500 outline-none flex-1" value="[THAY: Căn hộ / Đất nền]">
+                <a id="heroZalo" href="#" target="_blank" class="bg-sky-400 text-slate-900 px-8 py-3 rounded-xl text-sm font-semibold hover:bg-sky-300 transition whitespace-nowrap">Tìm Ngay</a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-6" id="viTriLine"></p>
+        </div>
+    </section>
+
+    <!-- DỰ ÁN NỔI BẬT -->
+    <section id="du-an" class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="flex items-end justify-between mb-8">
+            <h2 class="font-serif-luxury text-2xl md:text-3xl">Dự Án Nổi Bật</h2>
+            <a id="xemZalo" href="#" target="_blank" class="text-xs uppercase tracking-widest text-sky-400 hover:text-sky-300">Xem tất cả →</a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="card rounded-3xl overflow-hidden glass">
+                <div class="h-44 bg-gradient-to-br from-sky-700 to-slate-800 flex items-center justify-center text-neutral-400 text-xs uppercase">Ảnh dự án 1</div>
+                <div class="p-5"><h3 class="font-medium mb-1">[THAY: Tên căn/sản phẩm 1]</h3><p class="text-xs text-neutral-400">[THAY: Diện tích · Giá · Vị trí]</p></div>
+            </div>
+            <div class="card rounded-3xl overflow-hidden glass">
+                <div class="h-44 bg-gradient-to-br from-indigo-700 to-slate-800 flex items-center justify-center text-neutral-400 text-xs uppercase">Ảnh dự án 2</div>
+                <div class="p-5"><h3 class="font-medium mb-1">[THAY: Tên căn/sản phẩm 2]</h3><p class="text-xs text-neutral-400">[THAY: Diện tích · Giá · Vị trí]</p></div>
+            </div>
+            <div class="card rounded-3xl overflow-hidden glass">
+                <div class="h-44 bg-gradient-to-br from-cyan-700 to-slate-800 flex items-center justify-center text-neutral-400 text-xs uppercase">Ảnh dự án 3</div>
+                <div class="p-5"><h3 class="font-medium mb-1">[THAY: Tên căn/sản phẩm 3]</h3><p class="text-xs text-neutral-400">[THAY: Diện tích · Giá · Vị trí]</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIỆN ÍCH -->
+    <section id="tien-ich" class="py-16 px-6">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-4 gap-6 text-center">
+            <div class="glass rounded-2xl p-6"><p class="text-2xl">🏊</p><p class="text-sm font-medium mt-2">Hồ bơi vô cực</p></div>
+            <div class="glass rounded-2xl p-6"><p class="text-2xl">🌳</p><p class="text-sm font-medium mt-2">Công viên nội khu</p></div>
+            <div class="glass rounded-2xl p-6"><p class="text-2xl">🛡️</p><p class="text-sm font-medium mt-2">An ninh 24/7</p></div>
+            <div class="glass rounded-2xl p-6"><p class="text-2xl">🅿️</p><p class="text-sm font-medium mt-2">Hầm xe rộng</p></div>
+        </div>
+    </section>
+
+    <!-- LIÊN HỆ -->
+    <section id="lien-he" class="py-20 px-6">
+        <div class="max-w-3xl mx-auto text-center glass rounded-3xl p-10">
+            <h2 class="font-serif-luxury text-3xl mb-3">Đặt Lịch Xem Dự Án</h2>
+            <p class="text-sm text-neutral-400 mb-6">[THAY: Ưu đãi mở bán / cam kết phản hồi nhanh]</p>
+            <a id="contactZalo" href="#" target="_blank" class="inline-block bg-sky-400 text-slate-900 px-10 py-4 rounded-full text-sm font-semibold hover:bg-sky-300 transition">💬 Chat Zalo Ngay</a>
+            <p class="mt-5 text-sm text-neutral-400" id="contactInfo"></p>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 text-center text-xs text-neutral-600">
+        <p id="footerTen"></p>
+    </footer>
+
+    <a id="floatZalo" href="#" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition">
+        <span class="text-xs font-medium uppercase tracking-wider">💬 Zalo</span>
+    </a>
+
+    <script>
+        document.getElementById('navTen').textContent = CFG.ten;
+        document.getElementById('heroTen').textContent = CFG.ten;
+        document.getElementById('heroMoTa').textContent = CFG.moTa;
+        document.getElementById('viTriLine').textContent = '📍 ' + CFG.viTri;
+        document.title = CFG.ten + ' — ' + CFG.slogan;
+        document.getElementById('contactInfo').textContent = '📞 ' + CFG.sdt;
+        document.getElementById('footerTen').textContent = '© 2026 ' + CFG.ten;
+        const zu = 'https://zalo.me/' + CFG.zalo;
+        ['navZalo','heroZalo','xemZalo','contactZalo','floatZalo'].forEach(id => document.getElementById(id).href = zu);
+    </script>
+</body>
+</html>

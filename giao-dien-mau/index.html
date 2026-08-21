@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         MẪU 1 · XƯỞNG SẢN XUẤT / B2B
+         CÁCH DÙNG: sửa các dòng có chữ [THAY] trong thẻ <script> cấu hình
+         bên dưới, thay ảnh trong thư mục images/ cùng tên, là xong.
+    ============================================================ -->
+    <title>[THAY: Tên công ty] — Sản xuất & Gia công</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        // ============ CẤU HÌNH — SỬA Ở ĐÂY ============
+        const CFG = {
+            ten: '[THAY: Tên công ty]',            // vd: Xưởng Gỗ Anh Tùng
+            slogan: '[THAY: Slogan ngắn]',          // vd: Sản xuất & Gia công nội thất
+            moTa: '[THAY: Mô tả 1 câu về năng lực xưởng]',
+            sdt: '[THAY: SĐT]',                     // vd: 0582283454
+            zalo: '[THAY: SĐT Zalo]',               // vd: 0582283454
+            diaChi: '[THAY: Địa chỉ]'
+        };
+        // ==============================================
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0F1214; color: #E8EAED; }
+        .font-display { font-family: 'Oswald', sans-serif; }
+        .accent { color: #F97316; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 w-full bg-[#0F1214]/95 backdrop-blur border-b border-white/10 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-display text-xl uppercase tracking-widest font-semibold"><span class="accent">■</span> <span id="navTen">Công Ty</span></a>
+            <nav class="hidden md:flex gap-8 text-xs uppercase tracking-widest text-neutral-400">
+                <a href="#nang-luc" class="hover:text-white">Năng Lực</a>
+                <a href="#san-pham" class="hover:text-white">Sản Phẩm</a>
+                <a href="#quy-trinh" class="hover:text-white">Quy Trình</a>
+                <a href="#lien-he" class="hover:text-white">Liên Hệ</a>
+            </nav>
+            <a id="navZalo" href="#" target="_blank" class="text-xs uppercase tracking-widest bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition">Nhận Báo Giá</a>
+        </div>
+    </header>
+
+    <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
+        <p class="text-orange-400 text-xs uppercase tracking-[0.3em] mb-4">Nhà Sản Xuất · Gia Công Trọn Gói</p>
+        <h1 class="font-display text-4xl md:text-6xl uppercase leading-tight mb-6" id="heroTen">[Tên công ty]</h1>
+        <p class="text-neutral-400 max-w-xl mb-8" id="heroSlogan">[Slogan ngắn về năng lực sản xuất]</p>
+        <div class="flex gap-4 flex-col sm:flex-row">
+            <a id="heroZalo" href="#" target="_blank" class="bg-orange-500 text-white px-8 py-4 text-sm uppercase tracking-widest rounded hover:bg-orange-600 transition text-center">Báo Giá Nhanh qua Zalo</a>
+            <a href="#san-pham" class="border border-white/20 px-8 py-4 text-sm uppercase tracking-widest rounded hover:border-white transition text-center">Xem Sản Phẩm</a>
+        </div>
+        <div class="grid grid-cols-3 gap-6 mt-16 border-t border-white/10 pt-8 max-w-2xl">
+            <div><p class="font-display text-3xl accent">15+</p><p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-1">Năm kinh nghiệm</p></div>
+            <div><p class="font-display text-3xl accent">500+</p><p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-1">Khách hàng B2B</p></div>
+            <div><p class="font-display text-3xl accent">100%</p><p class="text-[11px] uppercase tracking-widest text-neutral-500 mt-1">Gia công tại xưởng</p></div>
+        </div>
+    </section>
+
+    <section id="nang-luc" class="py-16 bg-[#161A1D] px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+            <div class="border-t-2 border-orange-500 pt-5">
+                <h3 class="font-display uppercase text-lg mb-2">Năng Lực Máy Móc</h3>
+                <p class="text-sm text-neutral-400 leading-relaxed">[THAY: Liệt kê máy CNC, dây chuyền, công suất sản xuất của xưởng]</p>
+            </div>
+            <div class="border-t-2 border-orange-500 pt-5">
+                <h3 class="font-display uppercase text-lg mb-2">Quy Mô & Kinh Nghiệm</h3>
+                <p class="text-sm text-neutral-400 leading-relaxed">[THAY: Diện tích nhà xưởng, số năm hoạt động, các dự án tiêu biểu]</p>
+            </div>
+            <div class="border-t-2 border-orange-500 pt-5">
+                <h3 class="font-display uppercase text-lg mb-2">Cam Kết Chất Lượng</h3>
+                <p class="text-sm text-neutral-400 leading-relaxed">[THAY: Quy trình kiểm tra, chính sách bảo hành, hỗ trợ kỹ thuật]</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="san-pham" class="py-16 px-6 max-w-6xl mx-auto">
+        <h2 class="font-display uppercase text-2xl mb-8">Sản Phẩm Chính</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- THAY: thay ảnh san-pham-1.jpg bằng ảnh thật của xưởng -->
+            <div class="bg-[#161A1D] rounded-xl overflow-hidden">
+                <div class="h-40 bg-neutral-800 flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh sản phẩm 1</div>
+                <div class="p-5"><h3 class="font-medium mb-1">[THAY: Tên sản phẩm 1]</h3><p class="text-xs text-neutral-500">[THAY: Mô tả ngắn + thông số]</p></div>
+            </div>
+            <div class="bg-[#161A1D] rounded-xl overflow-hidden">
+                <div class="h-40 bg-neutral-800 flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh sản phẩm 2</div>
+                <div class="p-5"><h3 class="font-medium mb-1">[THAY: Tên sản phẩm 2]</h3><p class="text-xs text-neutral-500">[THAY: Mô tả ngắn + thông số]</p></div>
+            </div>
+            <div class="bg-[#161A1D] rounded-xl overflow-hidden">
+                <div class="h-40 bg-neutral-800 flex items-center justify-center text-neutral-600 text-xs uppercase">Ảnh sản phẩm 3</div>
+                <div class="p-5"><h3 class="font-medium mb-1">[THAY: Tên sản phẩm 3]</h3><p class="text-xs text-neutral-500">[THAY: Mô tả ngắn + thông số]</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quy-trinh" class="py-16 bg-[#161A1D] px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-display uppercase text-2xl mb-8">Quy Trình Hợp Tác</h2>
+            <div class="grid md:grid-cols-4 gap-6 text-center">
+                <div><p class="font-display text-4xl text-orange-500/30 mb-2">1</p><p class="text-sm font-medium">Gửi Yêu Cầu</p><p class="text-xs text-neutral-500 mt-1">Qua Zalo / điện thoại</p></div>
+                <div><p class="font-display text-4xl text-orange-500/30 mb-2">2</p><p class="text-sm font-medium">Báo Giá & Mẫu</p><p class="text-xs text-neutral-500 mt-1">Trong 24 giờ</p></div>
+                <div><p class="font-display text-4xl text-orange-500/30 mb-2">3</p><p class="text-sm font-medium">Sản Xuất</p><p class="text-xs text-neutral-500 mt-1">Gia công tại xưởng</p></div>
+                <div><p class="font-display text-4xl text-orange-500/30 mb-2">4</p><p class="text-sm font-medium">Giao Hàng</p><p class="text-xs text-neutral-500 mt-1">Đúng tiến độ, đúng mẫu</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lien-he" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-display uppercase text-3xl mb-4">Liên Hệ Báo Giá</h2>
+            <p class="text-neutral-400 mb-8">[THAY: Cam kết phản hồi nhanh, báo giá minh bạch, hỗ trợ kỹ thuật tận tình]</p>
+            <a id="contactZalo" href="#" target="_blank" class="inline-block bg-orange-500 text-white px-10 py-4 uppercase tracking-widest text-sm rounded hover:bg-orange-600 transition">Chat Zalo Ngay</a>
+            <p class="mt-6 text-sm" id="contactInfo"></p>
+        </div>
+    </section>
+
+    <footer class="bg-black py-8 px-6 text-center text-xs text-neutral-600">
+        <p id="footerTen"></p>
+    </footer>
+
+    <a id="floatZalo" href="#" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition">
+        <span class="text-xs font-medium uppercase tracking-wider">💬 Zalo</span>
+    </a>
+
+    <script>
+        // Áp cấu hình vào các vị trí — không cần sửa gì thêm ở đây
+        document.getElementById('navTen').textContent = CFG.ten;
+        document.getElementById('heroTen').textContent = CFG.ten;
+        document.getElementById('heroSlogan').textContent = CFG.slogan;
+        document.title = CFG.ten + ' — ' + CFG.slogan;
+        document.getElementById('contactInfo').textContent = '📞 ' + CFG.sdt + '  ·  📍 ' + CFG.diaChi;
+        document.getElementById('footerTen').textContent = '© 2026 ' + CFG.ten + ' — ' + CFG.slogan;
+        const zaloUrl = 'https://zalo.me/' + CFG.zalo;
+        document.getElementById('navZalo').href = zaloUrl;
+        document.getElementById('heroZalo').href = zaloUrl;
+        document.getElementById('contactZalo').href = zaloUrl;
+        document.getElementById('floatZalo').href = zaloUrl;
+    </script>
+</body>
+</html>

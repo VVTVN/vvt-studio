@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         MẪU 4 · LANDING PAGE QUẢNG CÁO (v2)
+         Trang đích cho Google Ads / Facebook.
+         CẤU HÌNH: sửa CFG bên dưới.
+    ============================================================ -->
+    <title>[THAY: Ưu đãi / Thông điệp chính]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        const CFG = {
+            uuDai: '[THAY: Tiêu đề ưu đãi]',
+            phu: '[THAY: Dòng phụ]',
+            camKet: '[THAY: Cam kết]',
+            sdt: '[THAY: SĐT]',
+            zalo: '[THAY: SĐT Zalo]',
+            hetHan: '[THAY: Hạn chót, vd 2026-12-31T23:59:59]' // để trống '' là bỏ đếm ngược
+        };
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .cta-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(244,63,94,.5); } 50% { box-shadow: 0 0 0 16px rgba(244,63,94,0); } }
+        .glass { background: rgba(255,255,255,.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.15); }
+        .grad-text { background: linear-gradient(90deg,#FDA4AF,#F87171,#FCD34D); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    </style>
+</head>
+<body class="antialiased bg-[#0B1020] text-white">
+
+    <section class="relative min-h-screen flex flex-col justify-center px-6 py-14 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-rose-700/35 via-[#0B1020] to-indigo-800/35"></div>
+        <div class="absolute -top-32 left-1/3 w-[420px] h-[420px] bg-rose-500/25 rounded-full blur-[110px]"></div>
+        <div class="absolute -bottom-32 right-1/3 w-[420px] h-[420px] bg-indigo-500/25 rounded-full blur-[110px]"></div>
+
+        <div class="relative max-w-2xl mx-auto text-center">
+            <span class="inline-block glass rounded-full px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-rose-200 mb-6">⚡ Ưu Đãi Có Hạn</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.1] mb-5 grad-text" id="tieuDe">[Tiêu đề ưu đãi]</h1>
+            <p class="text-lg text-neutral-300 mb-3" id="dongPhu">[Dòng phụ mô tả]</p>
+            <p class="text-sm text-neutral-400 mb-8" id="camKet">[Cam kết]</p>
+
+            <!-- Đếm ngược -->
+            <div id="countdown" class="hidden justify-center gap-3 mb-8">
+                <div class="glass rounded-2xl w-20 py-3"><p id="cdD" class="text-3xl font-extrabold">0</p><p class="text-[10px] uppercase tracking-widest text-neutral-400">Ngày</p></div>
+                <div class="glass rounded-2xl w-20 py-3"><p id="cdH" class="text-3xl font-extrabold">0</p><p class="text-[10px] uppercase tracking-widest text-neutral-400">Giờ</p></div>
+                <div class="glass rounded-2xl w-20 py-3"><p id="cdM" class="text-3xl font-extrabold">0</p><p class="text-[10px] uppercase tracking-widest text-neutral-400">Phút</p></div>
+                <div class="glass rounded-2xl w-20 py-3"><p id="cdS" class="text-3xl font-extrabold">0</p><p class="text-[10px] uppercase tracking-widest text-neutral-400">Giây</p></div>
+            </div>
+
+            <a id="ctaZalo" href="#" target="_blank" class="cta-pulse inline-block bg-rose-500 text-white text-lg font-bold px-12 py-5 rounded-2xl hover:bg-rose-600 transition w-full max-w-md mx-auto">
+                💬 Nhận Ưu Đãi Ngay — Chat Zalo
+            </a>
+            <p class="text-xs text-neutral-500 mt-4">Phản hồi trong vài phút · Miễn phí tư vấn · Không ràng buộc</p>
+
+            <!-- 3 lợi ích -->
+            <div class="grid grid-cols-3 gap-4 mt-12 text-xs">
+                <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">✅</p><p class="font-semibold">[THAY: Lợi ích 1]</p><p class="text-neutral-400 mt-1">[THAY: mô tả ngắn]</p></div>
+                <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">⚡</p><p class="font-semibold">[THAY: Lợi ích 2]</p><p class="text-neutral-400 mt-1">[THAY: mô tả ngắn]</p></div>
+                <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">🛡️</p><p class="font-semibold">[THAY: Lợi ích 3]</p><p class="text-neutral-400 mt-1">[THAY: mô tả ngắn]</p></div>
+            </div>
+
+            <p class="mt-10 text-sm font-semibold" id="phoneLine"></p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('tieuDe').textContent = CFG.uuDai;
+        document.getElementById('dongPhu').textContent = CFG.phu;
+        document.getElementById('camKet').textContent = CFG.camKet;
+        document.title = CFG.uuDai;
+        document.getElementById('phoneLine').textContent = '📞 Hotline / Zalo: ' + CFG.sdt;
+        document.getElementById('ctaZalo').href = 'https://zalo.me/' + CFG.zalo;
+
+        // Đếm ngược
+        if (CFG.hetHan) {
+            const target = new Date(CFG.hetHan).getTime();
+            if (!isNaN(target)) {
+                document.getElementById('countdown').classList.remove('hidden');
+                document.getElementById('countdown').classList.add('flex');
+                const tick = () => {
+                    let diff = Math.max(0, target - Date.now());
+                    document.getElementById('cdD').textContent = Math.floor(diff / 86400000);
+                    document.getElementById('cdH').textContent = Math.floor(diff / 3600000) % 24;
+                    document.getElementById('cdM').textContent = Math.floor(diff / 60000) % 60;
+                    document.getElementById('cdS').textContent = Math.floor(diff / 1000) % 60;
+                };
+                tick(); setInterval(tick, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
