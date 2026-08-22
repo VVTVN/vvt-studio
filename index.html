@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VVT Digital — Web Design & Revamp | Làm mới website chuyên nghiệp</title>
-    <meta name="description" content="VVT Digital chuyên thiết kế lại website cũ, xử lý ảnh studio, nội dung chuẩn SEO. Gói trọn gói 4.9 triệu, bàn giao 3-5 ngày, bảo hành 12 tháng.">
+    <meta name="description" content="VVT Digital chuyên thiết kế lại website cũ, xử lý ảnh studio, nội dung chuẩn SEO. Gói khởi đầu 1.5 triệu/năm, bàn giao 3-5 ngày, bảo hành 12 tháng.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="VVT Digital — Web Design & Revamp | Làm mới website chuyên nghiệp">
-    <meta property="og:description" content="VVT Digital chuyên thiết kế lại website cũ, xử lý ảnh studio, nội dung chuẩn SEO. Gói trọn gói 4.9 triệu, bàn giao 3-5 ngày, bảo hành 12 tháng.">
+    <meta property="og:description" content="VVT Digital chuyên thiết kế lại website cũ, xử lý ảnh studio, nội dung chuẩn SEO. Gói khởi đầu 1.5 triệu/năm, bàn giao 3-5 ngày, bảo hành 12 tháng.">
     <meta property="og:image" content="https://vvtdigital.vn/images/logo-avt.png">
     <meta property="og:url" content="https://vvtdigital.vn/">
     <link rel="icon" type="image/png" href="images/logo-avt-fav.png">
@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
+        html, body { overflow-x: hidden; max-width: 100%; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FBFBFA; color: #1A1A1A; }
         .font-serif-luxury { font-family: 'Playfair Display', serif; }
         ::selection { background: #1A1A1A; color: #fff; }
@@ -137,7 +138,10 @@
             <!-- Video trước/sau revamp (THAY: video do gflow tạo) -->
             <div class="hero-in hero-in-3 relative">
                 <div class="rounded-3xl overflow-hidden shadow-2xl border border-neutral-200/60 aspect-video bg-neutral-100 relative">
-                    <video src="images/hero-revamp.mp4" poster="images/after-a.jpg" preload="metadata" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
+                    <video id="heroVideo" src="images/hero-revamp.mp4" poster="images/after-a.jpg" preload="metadata" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
+                    <button id="heroPlayBtn" class="absolute inset-0 m-auto w-20 h-20 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-2xl transition hover:scale-110" aria-label="Phát video" style="display:none">
+                        <svg viewBox="0 0 24 24" fill="#1A1A1A" class="w-9 h-9 ml-1"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
                     <span class="absolute top-4 left-4 bg-black/50 backdrop-blur text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Trước</span>
                     <span class="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Sau Revamp</span>
                 </div>
@@ -807,6 +811,26 @@
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         if (menuBtn) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // ---------- Hero video: nút play fallback cho mobile (autoplay bị chặn) ----------
+        const heroVideo = document.getElementById('heroVideo');
+        const heroPlayBtn = document.getElementById('heroPlayBtn');
+        if (heroVideo && heroPlayBtn) {
+            const showPlay = () => { heroPlayBtn.style.display = 'flex'; };
+            const p = heroVideo.play();
+            if (p) p.then(() => { heroPlayBtn.style.display = 'none'; }).catch(showPlay);
+            heroPlayBtn.addEventListener('click', () => {
+                heroVideo.muted = true;
+                const pp = heroVideo.play();
+                if (pp) pp.then(() => { heroPlayBtn.style.display = 'none'; }).catch(() => {});
+            });
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    const q = heroVideo.play();
+                    if (q) q.catch(() => {});
+                }
+            });
+        }
 
         // ---------- Scroll reveal (mượt) ----------
         const revealEls = document.querySelectorAll('.reveal');
