@@ -117,9 +117,28 @@
         .bg-soft-blue { background: linear-gradient(180deg, #FFFFFF 0%, #F2F8FF 100%); }
         .bg-soft-warm { background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F2 100%); }
         .grad-text-red { background: linear-gradient(90deg, #EF4444, #F97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        /* ---- NỀN TOÀN TRANG (ảnh tĩnh) ---- */
+        .bg-fixed {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background-image: url('images/bg.jpg');
+            background-size: cover; background-position: center;
+        }
+        .bg-fixed::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.88) 40%, rgba(255,255,255,0.92) 100%);
+        }
+        /* ---- HIỆU ỨNG GỢN NƯỚC KHI CHẠM ---- */
+        #ripple-canvas {
+            position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+        }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
+    <!-- NỀN TOÀN TRANG -->
+    <div class="bg-fixed"></div>
+    <!-- CANVAS GỢN NƯỚC KHI CHẠM -->
+    <canvas id="ripple-canvas"></canvas>
 
     <!-- ================= HEADER ================= -->
     <header class="fixed top-0 left-0 w-full bg-[#FBFBFA]/90 backdrop-blur-md z-50 border-b border-neutral-200/60">
@@ -942,6 +961,43 @@
         document.getElementById('lbClose').addEventListener('click', closeLb);
         lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+
+        // ---------- HIỆU ỨNG GỢN NƯỚC KHI CHẠM / CLICK ----------
+        (() => {
+            const cv = document.getElementById('ripple-canvas');
+            if (!cv) return;
+            const cx = cv.getContext('2d');
+            let w, h, dpr;
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = window.innerWidth; h = window.innerHeight;
+                cv.width = w * dpr; cv.height = h * dpr;
+                cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+            const ripples = [];
+            function addRipple(x, y) { ripples.push({ x, y, r: 2, max: 110, alpha: 0.4, speed: 1.6 }); }
+            window.addEventListener('pointerdown', (e) => addRipple(e.clientX, e.clientY));
+            window.addEventListener('pointermove', (e) => {
+                if (e.pointerType === 'touch' && Math.random() < 0.2) addRipple(e.clientX, e.clientY);
+            });
+            (function anim() {
+                cx.clearRect(0, 0, w, h);
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    const rp = ripples[i];
+                    rp.r += rp.speed; rp.alpha *= 0.97;
+                    if (rp.alpha < 0.01 || rp.r > rp.max) { ripples.splice(i, 1); continue; }
+                    cx.strokeStyle = `rgba(14,165,233,${rp.alpha})`;
+                    cx.lineWidth = 2;
+                    cx.beginPath(); cx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2); cx.stroke();
+                    cx.strokeStyle = `rgba(239,68,68,${rp.alpha * 0.5})`;
+                    cx.lineWidth = 1;
+                    cx.beginPath(); cx.arc(rp.x, rp.y, rp.r * 0.7, 0, Math.PI * 2); cx.stroke();
+                }
+                requestAnimationFrame(anim);
+            })();
+        })();
     </script>
 </body>
 </html>
