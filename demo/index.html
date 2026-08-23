@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Website Tức Thì — VVT Digital</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&family=Dancing+Script:wght@600;700&family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+  .pv { --acc:#0EA5E9; --bg:#E0F2FE; --txt:#1A1A1A; --muted:#8A8F98; --soft:#F4F4F4; --card:#FFFFFF; --line:#F0F0F0;
+       --disp:600; --font:'Segoe UI', Arial, sans-serif; --slogan-font:var(--font); --slogan-style:normal; --radius:14px;
+       --hero-img:url('https://picsum.photos/seed/vvt-tpl0/640/520');
+       --hero-ovl:linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.7)); }
+  .pv.tpl-1 { --acc:#F97316; --bg:#1C2327; --txt:#E8EAED; --muted:#9AA3AB; --soft:#262E33; --card:#1E2529; --line:#333C42;
+              --disp:'Oswald', sans-serif; --font:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+              --slogan-font:'Oswald', sans-serif; --slogan-style:normal;
+              --hero-img:url('https://picsum.photos/seed/vvt-xuong/640/520'); --hero-ovl:linear-gradient(180deg, rgba(15,18,20,.7), rgba(15,18,20,.55)); }
+  .pv.tpl-2 { --acc:#C9A227; --bg:#0B1120; --txt:#F1F5F9; --muted:#8FA0C0; --soft:#151D31; --card:#101827; --line:#26314A;
+              --disp:'Playfair Display', serif; --font:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+              --slogan-font:'Playfair Display', serif; --slogan-style:italic;
+              --hero-img:url('https://picsum.photos/seed/vvt-bds/640/560'); --hero-ovl:linear-gradient(180deg, rgba(11,17,32,.68), rgba(11,17,32,.45)); }
+  .pv.tpl-3 { --acc:#3B82F6; --bg:linear-gradient(135deg,#EFF6FF,#F5F3FF); --txt:#0F172A; --muted:#64748B; --soft:#E2E8F0; --card:#FFFFFF; --line:#E5E7EB;
+              --disp:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; --font:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; --radius:18px;
+              --slogan-font:'Playfair Display', serif; --slogan-style:italic;
+              --hero-img:url('https://picsum.photos/seed/vvt-dv/640/520'); --hero-ovl:linear-gradient(180deg, rgba(59,130,246,.42), rgba(255,255,255,.6)); }
+  .pv.tpl-4 { --acc:#EF4444; --bg:linear-gradient(160deg,#FFF1F2,#FEF9C3); --txt:#1F2937; --muted:#9CA3AF; --soft:#FEE2E2; --card:#FFFFFF; --line:#FECACA;
+              --disp:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; --font:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; --radius:16px;
+              --slogan-font:'Oswald', sans-serif; --slogan-style:normal;
+              --hero-img:url('https://picsum.photos/seed/vvt-lp/640/520'); --hero-ovl:linear-gradient(180deg, rgba(239,68,68,.5), rgba(255,255,255,.55)); }
+  .pv.tpl-5 { --acc:#D97706; --bg:#171310; --txt:#F5F0E8; --muted:#A2937F; --soft:#241E18; --card:#1E1914; --line:#33291F;
+              --disp:'Playfair Display', serif; --font:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; --radius:12px;
+              --slogan-font:'Dancing Script', cursive; --slogan-style:normal;
+              --hero-img:url('https://picsum.photos/seed/vvt-cf/640/520'); --hero-ovl:linear-gradient(180deg, rgba(23,19,16,.66), rgba(23,19,16,.5)); }
+  .pv.tpl-6 { --acc:#191714; --bg:#FAF8F5; --txt:#191714; --muted:#9B9389; --soft:#F1EDE7; --card:#FFFFFF; --line:#EAE4DC;
+              --disp:'Playfair Display', serif; --font:'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; --radius:4px;
+              --slogan-font:'Playfair Display', serif; --slogan-style:italic;
+              --hero-img:url('https://picsum.photos/seed/vvt-tt/640/700'); --hero-ovl:linear-gradient(180deg, rgba(25,23,20,.45), rgba(250,248,245,.75)); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Plus Jakarta Sans', Arial, sans-serif; background: #FBFBFA; color: #1A1A1A; }
+  .topbar { background: #fff; border-bottom: 1px solid #eee; padding: 12px 24px; display: flex; align-items: center; gap: 10px; }
+  .topbar .logo { width: 36px; height: 36px; border-radius: 9px; overflow: hidden; display: grid; place-items: center; background: #fff; }
+  .topbar .logo img { width: 100%; height: 100%; object-fit: contain; }
+  .topbar h1 { font-size: 15px; }
+  .topbar small { color: #888; font-size: 12px; }
+  .hint { max-width: 1250px; margin: 12px auto 0; padding: 0 20px; font-size: 12px; color: #666; }
+  .hint b { color: #0EA5E9; }
+  .rotate-hint { display: none; max-width: 1250px; margin: 8px auto 0; padding: 0 20px; font-size: 11.5px; color: #999; }
+  /* chỉ hiện trên điện thoại DỌC — nhắc xoay ngang để chỉnh sửa tiện hơn */
+  @media (max-width: 900px) and (orientation: portrait) { .rotate-hint { display: block; } }
+
+  .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1250px; margin: 24px auto; padding: 0 20px; }
+  /* Điện thoại DỌC: 1 cột, demo lên đầu */
+  @media (max-width: 900px) and (orientation: portrait) { .wrap { grid-template-columns: 1fr; } .preview { order: -1; } }
+  /* Điện thoại NGANG: 2 cột để chỉnh sửa tiện (form trái, demo phải) */
+  @media (max-width: 900px) and (orientation: landscape) {
+    .wrap { grid-template-columns: 1.1fr 1fr; gap: 14px; }
+    .preview { order: 0; }
+    .iphone { width: 250px; }
+    .screen { height: 480px; }
+    .tpls { grid-template-columns: repeat(3, 1fr); }
+    .form { padding: 16px; }
+  }
+
+  .tpls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 14px 0 4px; }
+  .tpl { border: 2px solid #e5e5e5; border-radius: 10px; padding: 9px 6px; text-align: center; cursor: pointer; background: #fff; font-size: 11.5px; font-weight: 600; color: #444; transition: all .15s; }
+  .tpl .sw { display: inline-block; width: 22px; height: 22px; border-radius: 6px; margin-bottom: 4px; }
+  .tpl:hover { border-color: #bbb; }
+  .tpl.active { border-color: #0EA5E9; background: #F0F9FF; color: #0EA5E9; }
+
+  .form { background: #fff; border: 1px solid #eee; border-radius: 16px; padding: 22px; box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+  .form h2 { font-size: 18px; margin-bottom: 4px; }
+  .form p.sub { color: #888; font-size: 13px; margin-bottom: 14px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin: 13px 0 5px; }
+  input[type=text], input[type=tel], input[type=color] { width: 100%; padding: 10px 12px; border: 1.5px solid #ddd; border-radius: 10px; font-size: 14px; outline: none; }
+  input:focus { border-color: #0EA5E9; }
+  input[type=color] { height: 44px; padding: 4px; cursor: pointer; }
+  input[type=file] { font-size: 13px; }
+  .row2 { display: grid; grid-template-columns: 1fr 90px; gap: 10px; align-items: end; }
+  .row2 label { margin-bottom: 5px; }
+  .btn { margin-top: 20px; width: 100%; padding: 13px; border: none; border-radius: 12px; background: #0EA5E9; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .1s, opacity .2s; }
+  .btn:hover { opacity: .9; }
+  .btn:active { transform: scale(.98); }
+
+  /* ============ PREVIEW chung ============ */
+  .preview { display: flex; flex-direction: column; align-items: center; }
+  .preview h3 { font-size: 13px; color: #999; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .1em; }
+  .iphone { width: 300px; background: #111; border-radius: 44px; padding: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+  .screen { background: #fff; border-radius: 34px; height: 640px; overflow: hidden; position: relative; font-family: var(--font); display: flex; flex-direction: column; }
+  .scr-body { flex: 1; overflow-y: auto; overflow-x: hidden; }
+  .notch { position: sticky; top: 0; height: 26px; z-index: 5; display: flex; justify-content: center; }
+  .notch::after { content: ""; width: 110px; height: 22px; background: #111; border-radius: 0 0 16px 16px; }
+
+  .hero { padding: 42px 18px 30px; text-align: center; background-color: var(--bg); background-image: var(--hero-ovl), var(--hero-img); background-size: cover, cover; background-position: center; color: var(--txt); }
+  .site-logo { width: 64px; height: 64px; border-radius: 20px; background: var(--acc); margin: 0 auto 11px; display: grid; place-items: center; font-size: 27px; font-weight: 800; color: #fff; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,.28); }
+  .site-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .site-name { font-size: 24px; font-weight: 800; font-family: var(--disp); letter-spacing: .02em; line-height: 1.15; text-shadow: 0 1px 10px rgba(0,0,0,.35); }
+  .site-slogan { font-size: 12px; font-family: var(--slogan-font); font-style: var(--slogan-style); color: var(--muted); margin-top: 6px; line-height: 1.5; letter-spacing: .01em; }
+  .trust { margin-top: 8px; font-size: 11px; color: var(--txt); opacity: .85; }
+  .trust b { color: var(--acc); }
+  .cta-row { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
+  .cta { padding: 10px 20px; border-radius: 999px; background: var(--acc); color: #fff; font-size: 12.5px; font-weight: 800; box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+  .cta2 { padding: 10px 16px; border-radius: 999px; border: 1.5px solid rgba(128,128,128,.55); color: var(--acc); font-size: 12px; font-weight: 700; background: var(--card); }
+  .sec-title { display: flex; align-items: baseline; justify-content: space-between; padding: 15px 15px 8px; }
+  .sec-title h4 { font-size: 14px; font-weight: 800; font-family: var(--disp); color: var(--txt); }
+  .sec-title span { font-size: 11px; color: var(--acc); font-weight: 700; }
+  .botnav { display: flex; border-top: 1px solid var(--line); background: var(--card); }
+  .botnav div { flex: 1; text-align: center; padding: 7px 0 6px; font-size: 9px; color: var(--muted); }
+  .botnav .ic { font-size: 16px; display: block; }
+  .botnav .on { color: var(--acc); font-weight: 700; }
+
+  /* ===== linh kiện dùng chung ===== */
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: .05em; }
+  .prod-card { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--card); box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+  .prod-card .img { aspect-ratio: 1/1; background: var(--soft); position: relative; }
+  .prod-card .img img { width: 100%; height: 100%; object-fit: cover; }
+  .prod-card .sold { position: absolute; left: 6px; bottom: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 9px; padding: 2px 7px; border-radius: 999px; }
+  .prod-card .cap { padding: 7px 9px 0; font-size: 11px; font-weight: 600; color: var(--txt); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 30px; }
+  .prod-card .star { padding: 2px 9px 0; font-size: 9.5px; color: var(--muted); }
+  .prod-card .star b { color: #F59E0B; }
+  .prod-card .price { padding: 2px 9px 9px; font-size: 12.5px; color: var(--acc); font-weight: 800; }
+
+  /* ===== MẪU 1 — XƯỞNG SX / B2B ===== */
+  .chips { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 13px; }
+  .chip { font-size: 10px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: rgba(128,128,128,.14); border: 1px solid var(--line); color: var(--txt); }
+  .prod-row { display: flex; gap: 10px; padding: 6px 14px; align-items: center; border-bottom: 1px solid var(--line); }
+  .prod-row .img { width: 64px; height: 64px; border-radius: 12px; overflow: hidden; background: var(--soft); flex-shrink: 0; }
+  .prod-row .img img { width: 100%; height: 100%; object-fit: cover; }
+  .prod-row .info { flex: 1; min-width: 0; }
+  .prod-row .nm { font-size: 11.5px; font-weight: 700; color: var(--txt); }
+  .prod-row .sp { font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+  .prod-row .pr { font-size: 12px; color: var(--acc); font-weight: 800; margin-top: 2px; }
+  .prod-row .quote { font-size: 9.5px; font-weight: 800; background: var(--acc); color: #fff; padding: 5px 9px; border-radius: 8px; }
+  .banner { margin: 10px 14px 14px; padding: 10px; border-radius: 12px; background: rgba(128,128,128,.12); border: 1px dashed rgba(128,128,128,.5); text-align: center; font-size: 10.5px; font-weight: 700; color: var(--txt); }
+
+  /* ===== MẪU 2 — BẤT ĐỘNG SẢN ===== */
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 14px 0; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 9px 4px; text-align: center; }
+  .stat b { display: block; font-size: 14px; color: var(--acc); font-family: var(--disp); }
+  .stat span { font-size: 8.5px; color: var(--muted); }
+  .bds-card { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+  .bds-card .img { aspect-ratio: 4/3; background: var(--soft); }
+  .bds-card .img img { width: 100%; height: 100%; object-fit: cover; }
+  .bds-card .tt { position: absolute; top: 8px; left: 8px; background: var(--acc); color: #fff; font-size: 9px; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+  .bds-card .bd { padding: 9px 11px; }
+  .bds-card .nm { font-size: 12px; font-weight: 800; color: var(--txt); font-family: var(--disp); }
+  .bds-card .pr { font-size: 12.5px; color: var(--acc); font-weight: 800; margin-top: 3px; }
+  .bds-card .dt { font-size: 9px; color: var(--muted); margin-top: 2px; }
+
+  /* ===== MẪU 3 — DỊCH VỤ ===== */
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; padding: 6px 14px 12px; }
+  .svc { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 13px 10px; text-align: center; }
+  .svc .ic { font-size: 21px; }
+  .svc .nm { font-size: 11px; font-weight: 800; color: var(--txt); margin-top: 6px; }
+  .svc .ds { font-size: 9px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .band { margin: 4px 14px 14px; padding: 13px; border-radius: 14px; background: var(--acc); color: #fff; text-align: center; font-size: 12px; font-weight: 800; box-shadow: 0 8px 20px rgba(0,0,0,.28); }
+  .band small { display: block; font-size: 9.5px; font-weight: 600; opacity: .9; margin-top: 3px; }
+
+  /* ===== MẪU 4 — LANDING ADS ===== */
+  .big-badge { display: inline-block; margin-bottom: 10px; padding: 6px 14px; border-radius: 10px; background: #EF4444; color: #fff; font-size: 11px; font-weight: 900; letter-spacing: .03em; box-shadow: 0 6px 16px rgba(239,68,68,.5); transform: rotate(-2deg); }
+  .countdown { display: flex; gap: 7px; justify-content: center; margin-top: 13px; }
+  .cd { background: rgba(128,128,128,.12); border: 1px solid var(--line); border-radius: 10px; padding: 6px 0; width: 52px; text-align: center; }
+  .cd b { display: block; font-size: 16px; color: var(--acc); }
+  .cd span { font-size: 8px; color: var(--muted); }
+  .price-old { text-decoration: line-through; color: var(--muted); font-size: 10px; font-weight: 600; margin-right: 5px; }
+  .flash { display: flex; align-items: center; gap: 5px; margin: 0 14px 8px; font-size: 10.5px; font-weight: 800; color: var(--txt); }
+  .flash .bar { flex: 1; height: 6px; border-radius: 999px; background: var(--soft); overflow: hidden; }
+  .flash .bar i { display: block; height: 100%; width: 76%; background: var(--acc); border-radius: 999px; }
+
+  /* ===== MẪU 5 — QUÁN CF ===== */
+  .menu-tabs { display: flex; gap: 7px; padding: 12px 14px 8px; }
+  .mtab { font-size: 10.5px; font-weight: 800; padding: 6px 13px; border-radius: 999px; background: var(--soft); color: var(--muted); }
+  .mtab.on { background: var(--acc); color: #fff; }
+  .menu-row { display: flex; gap: 10px; padding: 8px 14px; align-items: center; }
+  .menu-row .img { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; background: var(--soft); flex-shrink: 0; }
+  .menu-row .img img { width: 100%; height: 100%; object-fit: cover; }
+  .menu-row .info { flex: 1; min-width: 0; }
+  .menu-row .nm { font-size: 11.5px; font-weight: 700; color: var(--txt); }
+  .menu-row .ds { font-size: 9px; color: var(--muted); margin-top: 2px; }
+  .menu-row .pr { font-size: 12px; color: var(--acc); font-weight: 800; }
+  .fab { position: sticky; bottom: 8px; display: flex; justify-content: center; }
+  .fab div { background: var(--acc); color: #fff; font-size: 12px; font-weight: 800; padding: 11px 26px; border-radius: 999px; box-shadow: 0 8px 22px rgba(0,0,0,.32); }
+
+  /* ===== MẪU 6 — THỜI TRANG ===== */
+  .lookbook { position: relative; text-align: center; background-color: var(--bg); background-image: var(--hero-ovl), var(--hero-img); background-size: cover, cover; background-position: center top; padding: 64px 16px 40px; color: var(--txt); }
+  .lookbook .site-name { font-size: 27px; letter-spacing: .08em; text-transform: uppercase; }
+  .lookbook .site-slogan { font-size: 13px; font-family: var(--slogan-font); font-style: var(--slogan-style); color: var(--muted); }
+  .lookbook .cta2 { border: 1px solid rgba(128,128,128,.5); background: var(--card); }
+  .mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 14px 14px; }
+  .mini .img { aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; background: var(--soft); }
+  .mini .img img { width: 100%; height: 100%; object-fit: cover; }
+  .mini .nm { font-size: 9.5px; font-weight: 600; color: var(--txt); margin-top: 5px; }
+  .mini .pr { font-size: 10.5px; color: var(--acc); font-weight: 800; }
+  .news { padding: 0 14px 14px; font-size: 10px; color: var(--muted); text-align: center; letter-spacing: .12em; text-transform: uppercase; }
+
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; place-items: center; z-index: 50; }
+  .modal.show { display: grid; }
+  .modal-box { background: #fff; border-radius: 18px; padding: 26px; width: min(92vw, 380px); }
+  .modal-box h3 { font-size: 17px; margin-bottom: 4px; }
+  .modal-box p { font-size: 13px; color: #777; margin-bottom: 14px; }
+  .modal-box input { margin-bottom: 10px; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 8px; }
+  .modal-actions .btn { margin-top: 0; }
+  .modal-actions .btn.ghost { background: #eee; color: #555; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #111; color: #fff; padding: 12px 20px; border-radius: 999px; font-size: 13.5px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 60; }
+  .toast.show { opacity: 1; }
+  .toast.ok { background: #059669; }
+  .toast.err { background: #DC2626; }
+  .more-link { max-width: 1250px; margin: 26px auto 30px; padding: 0 20px; text-align: center; font-size: 12.5px; color: #999; }
+  .more-link a { color: #0EA5E9; font-weight: 700; text-decoration: none; }
+  .more-link a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo"><img src="logo.png" alt="VVT Digital"></div>
+  <div><h1>Demo Website Tức Thì</h1><small>Chọn mẫu, nhập thông tin, xem ngay trên điện thoại</small></div>
+</div>
+
+<div class="hint">Chào bạn! <b>Chọn 1 mẫu</b> bạn thích, điền tên shop, hotline, tải logo & ảnh sản phẩm, bấm <b>"Nhận Demo & Báo Giá"</b> để được gửi bản demo đẹp hoàn chỉnh miễn phí.</div>
+<div class="rotate-hint">Mẹo: xoay ngang điện thoại để xem form & demo cạnh nhau, chỉnh sửa tiện hơn</div>
+
+<div class="wrap">
+  <div class="form">
+    <h2>Chọn mẫu giao diện</h2>
+    <p class="sub">6 mẫu theo đúng bộ giao diện của VVT Digital — bấm để xem thử.</p>
+    <div class="tpls" id="tpls">
+      <div class="tpl active" data-tpl="1"><span class="sw" style="background:#F97316"></span>Xưởng SX / B2B</div>
+      <div class="tpl" data-tpl="2"><span class="sw" style="background:#C9A227"></span>Bất động sản</div>
+      <div class="tpl" data-tpl="3"><span class="sw" style="background:linear-gradient(135deg,#3B82F6,#8B5CF6)"></span>Dịch vụ</div>
+      <div class="tpl" data-tpl="4"><span class="sw" style="background:linear-gradient(90deg,#FDA4AF,#F87171,#FCD34D)"></span>Landing Ads</div>
+      <div class="tpl" data-tpl="5"><span class="sw" style="background:#D97706"></span>Nhà hàng / CF</div>
+      <div class="tpl" data-tpl="6"><span class="sw" style="background:#191714"></span>Thời trang</div>
+    </div>
+
+    <label>Tên shop *</label>
+    <input type="text" id="shop_name" placeholder="VD: MOHI Store" value="MOHI Store">
+    <label>Slogan</label>
+    <input type="text" id="slogan" placeholder="VD: Đồ chơi chất lượng — giá tận gốc" value="Đồ chơi chất lượng — giá tận gốc">
+    <label>Hotline hiển thị *</label>
+    <input type="tel" id="phone" placeholder="VD: 0901234567" value="0901234567">
+    <div class="row2">
+      <div><label>Màu riêng (tuỳ chọn)</label><input type="color" id="primary_color" value="#0EA5E9"></div>
+      <div><label>&nbsp;</label><input type="text" id="color_hex" value="#0EA5E9" readonly style="text-align:center;background:#f6f6f6"></div>
+    </div>
+    <label>Logo (ảnh, tuỳ chọn)</label>
+    <input type="file" id="logo" accept="image/*">
+    <label>Sản phẩm (nhiều ảnh, tuỳ chọn)</label>
+    <input type="file" id="products" accept="image/*" multiple>
+    <small id="prodHint" style="color:#999;font-size:11.5px;display:block;margin-top:4px">Giữ phím <b>Ctrl</b> (hoặc ⌘ trên Mac) và bấm nhiều ảnh để chọn cùng lúc — ảnh lần sau sẽ góp vào vị trí còn trống</small>
+    <div style="display:flex;gap:8px;margin-top:6px">
+      <small id="prodCount" style="color:#0EA5E9;font-size:12px;font-weight:600"></small>
+      <a href="#" id="clearProds" style="font-size:12px;color:#999">Bỏ ảnh đã chọn</a>
+    </div>
+    <button class="btn" id="openModalBtn">Nhận Demo & Báo Giá</button>
+  </div>
+
+  <div class="preview">
+    <h3>Preview — điện thoại</h3>
+    <div class="iphone">
+      <div class="screen pv tpl-1" id="screen">
+        <div class="scr-body" id="tplBody"></div>
+        <div class="botnav" id="botnav"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="leadModal">
+  <div class="modal-box">
+    <h3>Nhận Demo & Báo Giá</h3>
+    <p>Để lại thông tin, VVT Digital sẽ gửi bản demo hoàn chỉnh + báo giá trong 15 phút.</p>
+    <label>Tên anh/chị *</label>
+    <input type="text" id="customer_name" placeholder="VD: Chị Lan">
+    <label>Số điện thoại *</label>
+    <input type="tel" id="customer_phone" placeholder="VD: 0987654321">
+    <div class="modal-actions">
+      <button class="btn ghost" id="cancelBtn">Hủy</button>
+      <button class="btn" id="submitLeadBtn">Gửi</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="more-link">Hàng trăm mẫu web đẹp của mọi ngành nghề đang chờ bạn thỏa sức sáng tạo — ghé thăm <a href="https://vvtdigital.shop" target="_blank" rel="noopener">vvtdigital.shop</a></div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const vnd = (n) => new Intl.NumberFormat('vi-VN').format(n) + 'đ';
+  const pic = (tpl, i, w, h) => `https://picsum.photos/seed/vvt-p${tpl}-${i}/${w}/${h}`;
+
+  // Dữ liệu mẫu theo từng ngành — cấu trúc riêng từng mẫu
+  const TPL_DATA = {
+    1: { trust: '4.8 · 500+ đánh giá · Nhà máy 20 năm', chips: ['Chai lọ', 'Bồn pha chế', 'Ly thủy tinh', 'Hũ gia vị'],
+         prods: [['Bồn pha chế thủy tinh 10L', 890000, 'Gia công theo yêu cầu'], ['Bộ chai lọ 100ml-1L', 1250000, 'Chịu nhiệt, không chì'],
+                 ['Hũ đựng gia vị cao cấp', 245000, 'Đủ size 500ml-5L'], ['Ly thủy tinh đế dày 350ml', 68000, 'Sản xuất trong nước']] },
+    2: { trust: '4.9 · 2.1k khách hàng', stats: [['12,5ha', 'Tổng diện tích'], ['1.200', 'Căn hộ'], ['45%', 'Đã bàn giao']],
+         prods: [['Căn hộ 2PN view sông', 2800000000, 'Diện tích 72m²'], ['Penthouse áp mái', 11500000000, 'Diện tích 180m²']] },
+    3: { trust: '4.9 · 300+ khách hàng', svcs: [['Web chuẩn SEO', 'Tốc độ tải < 1.5s'], ['Mobile-first', 'Chuẩn điện thoại'], ['SSL bảo mật', 'Chứng chỉ an toàn'], ['Bàn giao 3-5 ngày', 'Hỗ trợ trọn đời']] },
+    4: { trust: '2.5k lượt săn sale', prods: [['Combo 2 sản phẩm — giảm 30%', 399000, 570000], ['Flash sale 12h hôm nay', 199000, 299000],
+                 ['Quà tặng kèm mua 2 tặng 1', 299000, 450000], ['Ưu đãi thành viên mới', 150000, 250000]] },
+    5: { trust: '4.8 · 3.2k lượt yêu thích', menu: [['Cà phê sữa đá', 29000, 'Robusta đậm vị'], ['Bạc xỉu truyền thống', 32000, 'Sữa ông thọ'],
+                 ['Bánh mì bơ tỏi phô mai', 45000, 'Nướng nóng'], ['Trà chanh mật ong', 35000, 'Chanh tươi']] },
+    6: { trust: '4.7 · 1.5k đánh giá', prods: [['Áo sơ mi linen', 399000], ['Đầm suông', 590000], ['Quần ống rộng', 459000], ['Váy hoa nhí', 549000], ['Áo thun basic', 249000], ['Chân váy xếp ly', 329000]] },
+  };
+  const NAVS = {
+    1: ['Trang chủ', 'Sản phẩm', 'Gia công', 'Liên hệ'],
+    2: ['Tổng quan', 'Dự án', 'Vị trí', 'Liên hệ'],
+    3: ['Trang chủ', 'Dịch vụ', 'Dự án', 'Liên hệ'],
+    4: ['Trang chủ', 'Sale', 'Quà tặng', 'Gọi'],
+    5: ['Trang chủ', 'Menu', 'Ưu đãi', 'Đặt bàn'],
+    6: ['Bộ sưu tập', 'Mới', 'Quà tặng', 'Liên hệ'],
+  };
+
+  const rv = { name: 'MOHI Store', slogan: '', phone: '', color: '', logoUrl: '', prodUrls: [] };
+  let curTpl = 1;
+
+  // Nhận diện mobile: đổi gợi ý chọn ảnh + giảm độ phân giải ảnh chụp
+  const IS_TOUCH = window.matchMedia('(pointer: coarse)').matches || /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+  if (IS_TOUCH) {
+    $('prodHint').innerHTML = 'Chọn từng ảnh — mỗi lần chọn sẽ góp vào vị trí tiếp theo (tối đa 4 ảnh)';
+  }
+
+  const logoHtml = () => rv.logoUrl ? `<img src="${rv.logoUrl}">` : (rv.name.trim().charAt(0) || 'V').toUpperCase();
+  const heroTop = () => `
+    <div class="site-logo">${logoHtml()}</div>
+    <div class="site-name">${rv.name || 'Tên shop của bạn'}</div>
+    <div class="site-slogan">${rv.slogan || 'Slogan của bạn ở đây'}</div>`;
+  const phoneStr = () => rv.phone || '0xxxxxxxxx';
+
+  function buildTpl1() {
+    const t = TPL_DATA[1];
+    return `<div class="notch"></div>
+      <div class="hero">
+        ${heroTop()}<div class="trust">${t.trust}</div>
+        <div class="chips">${t.chips.map(c => `<span class="chip">${c}</span>`).join('')}</div>
+        <div class="cta-row"><div class="cta">Gọi: ${phoneStr()}</div></div>
+      </div>
+      <div class="sec-title"><h4>Sản phẩm bán chạy</h4><span>Xem tất cả</span></div>
+      ${t.prods.map((p, i) => `<div class="prod-row">
+        <div class="img"><img crossorigin="anonymous" src="${rv.prodUrls[i] || pic(1, i, 130, 130)}" loading="lazy"></div>
+        <div class="info"><div class="nm">${p[0]}</div><div class="sp">${p[2]}</div><div class="pr">${vnd(p[1])}</div></div>
+        <div class="quote">Báo giá</div></div>`).join('')}
+      <div class="banner">Giao toàn quốc · Nhận gia công theo yêu cầu · Đặt hàng tối thiểu 50 sản phẩm</div>`;
+  }
+
+  function buildTpl2() {
+    const t = TPL_DATA[2];
+    return `<div class="notch"></div>
+      <div class="hero">
+        <span class="badge" style="background:var(--acc);color:#fff;margin-bottom:10px">DỰ ÁN MỞ BÁN 2026</span>
+        ${heroTop()}<div class="trust">${t.trust}</div>
+        <div class="cta-row"><div class="cta">Đặt lịch tham quan</div><div class="cta2">${phoneStr()}</div></div>
+      </div>
+      <div class="stat-row">${t.stats.map(s => `<div class="stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
+      <div class="sec-title"><h4>Căn hộ tiêu biểu</h4><span>Xem tổng quan</span></div>
+      <div style="padding:4px 14px 14px;display:grid;gap:10px">
+        ${t.prods.map((p, i) => `<div class="bds-card">
+          <div class="img"><img crossorigin="anonymous" src="${rv.prodUrls[i] || pic(2, i, 300, 220)}" loading="lazy"></div>
+          <span class="tt">Bán: 90%</span>
+          <div class="bd"><div class="nm">${p[0]}</div><div class="pr">${vnd(p[1])}</div><div class="dt">${p[2]} · Bàn giao Q3/2026</div></div>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  function buildTpl3() {
+    const t = TPL_DATA[3];
+    return `<div class="notch"></div>
+      <div class="hero">
+        ${heroTop()}<div class="trust">${t.trust}</div>
+        <div class="cta-row"><div class="cta">Nhận tư vấn miễn phí</div></div>
+      </div>
+      <div class="sec-title"><h4>Dịch vụ của chúng tôi</h4><span>Xem tất cả</span></div>
+      <div class="svc-grid">${t.svcs.map(s => `<div class="svc"><div class="nm">${s[0]}</div><div class="ds">${s[1]}</div></div>`).join('')}</div>
+      <div class="band">Gọi ngay: ${phoneStr()}<small>Hỗ trợ 7:00 - 22:00 mỗi ngày</small></div>`;
+  }
+
+  function buildTpl4() {
+    const t = TPL_DATA[4];
+    return `<div class="notch"></div>
+      <div class="hero">
+        <span class="big-badge">GIẢM ĐẾN 50%</span>
+        ${heroTop()}<div class="trust">${t.trust}</div>
+        <div class="countdown">
+          <div class="cd"><b>02</b><span>giờ</span></div><div class="cd"><b>14</b><span>phút</span></div><div class="cd"><b>33</b><span>giây</span></div>
+        </div>
+      </div>
+      <div class="flash">Đã bán 1.284 sản phẩm hôm nay <div class="bar"><i></i></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 14px 14px">
+        ${t.prods.map((p, i) => `<div class="prod-card">
+          <div class="img"><img crossorigin="anonymous" src="${rv.prodUrls[i] || pic(4, i, 300, 300)}" loading="lazy"><span class="sold">Đã bán ${[ '4.8k','9.1k','2.2k','6.7k'][i]}</span></div>
+          <div class="cap">${p[0]}</div>
+          <div class="star">4.8</div>
+          <div class="price"><span class="price-old">${vnd(p[2])}</span>${vnd(p[1])}</div></div>`).join('')}
+      </div>
+      <div class="band">MUA NGAY — Giao nhanh 2h nội thành</div>`;
+  }
+
+  function buildTpl5() {
+    const t = TPL_DATA[5];
+    return `<div class="notch"></div>
+      <div class="hero">
+        ${heroTop()}<div class="trust">${t.trust}</div>
+        <div class="cta-row"><div class="cta">${phoneStr()}</div></div>
+      </div>
+      <div class="menu-tabs"><span class="mtab on">Cà phê</span><span class="mtab">Trà</span><span class="mtab">Bánh</span><span class="mtab">Đồ uống khác</span></div>
+      ${t.menu.map((m, i) => `<div class="menu-row">
+        <div class="img"><img crossorigin="anonymous" src="${rv.prodUrls[i] || pic(5, i, 110, 110)}" loading="lazy"></div>
+        <div class="info"><div class="nm">${m[0]}</div><div class="ds">${m[2]}</div></div>
+        <div class="pr">${vnd(m[1])}</div></div>`).join('')}
+      <div style="height:10px"></div>
+      <div class="fab"><div>Đặt bàn ngay</div></div>`;
+  }
+
+  function buildTpl6() {
+    const t = TPL_DATA[6];
+    return `<div class="notch"></div>
+      <div class="lookbook">
+        <div class="site-name">${rv.name || 'THƯƠNG HIỆU'}</div>
+        <div class="site-slogan">${rv.slogan || 'BST thu đông 2026'}</div>
+        <div class="trust">${t.trust}</div>
+        <div class="cta-row"><div class="cta2">Xem bộ sưu tập</div><div class="cta">${phoneStr()}</div></div>
+      </div>
+      <div class="sec-title"><h4>BST Thu - Đông</h4><span>Xem tất cả</span></div>
+      <div class="mini-grid">${t.prods.map((p, i) => `
+        <div class="mini"><div class="img"><img crossorigin="anonymous" src="${rv.prodUrls[i] || pic(6, i, 200, 260)}" loading="lazy"></div>
+        <div class="nm">${p[0]}</div><div class="pr">${vnd(p[1])}</div></div>`).join('')}</div>
+      <div class="news">Miễn phí giao hàng · Đổi trả 30 ngày</div>`;
+  }
+
+  const BUILDERS = { 1: buildTpl1, 2: buildTpl2, 3: buildTpl3, 4: buildTpl4, 5: buildTpl5, 6: buildTpl6 };
+
+  function render() {
+    const scr = $('screen');
+    scr.className = 'screen pv tpl-' + curTpl;
+    if (rv.color) scr.style.setProperty('--acc', rv.color); else scr.style.removeProperty('--acc');
+    $('tplBody').innerHTML = BUILDERS[curTpl]();
+    $('botnav').innerHTML = NAVS[curTpl].map((n, i) =>
+      `<div class="${i === 0 ? 'on' : ''}">${n}</div>`).join('');
+    $('prodCount').textContent = rv.prodUrls.length ? `Đã chọn ${rv.prodUrls.length} ảnh` : '';
+  }
+
+  document.querySelectorAll('.tpl').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.tpl').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      curTpl = parseInt(el.dataset.tpl, 10);
+      rv.color = '';
+      $('primary_color').value = getComputedStyle($('screen')).getPropertyValue('--acc').trim() || '#0EA5E9';
+      $('color_hex').value = $('primary_color').value;
+      render();
+    });
+  });
+
+  $('shop_name').addEventListener('input', e => { rv.name = e.target.value; render(); });
+  $('slogan').addEventListener('input', e => { rv.slogan = e.target.value; render(); });
+  $('phone').addEventListener('input', e => { rv.phone = e.target.value; render(); });
+  $('primary_color').addEventListener('input', e => { rv.color = e.target.value; render(); });
+  $('logo').addEventListener('change', e => { const f = e.target.files[0]; if (f) { rv.logoUrl = URL.createObjectURL(f); render(); } });
+  $('products').addEventListener('change', e => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    rv.prodUrls.push(...files.map(f => URL.createObjectURL(f)));
+    render();
+  });
+  $('clearProds').addEventListener('click', e => { e.preventDefault(); rv.prodUrls = []; $('products').value = ''; render(); });
+
+  const modal = $('leadModal');
+  $('openModalBtn').addEventListener('click', () => {
+    if (!rv.name.trim() || !rv.phone.trim()) { toast('Nhập tên shop và hotline trước nhé!', 'err'); return; }
+    modal.classList.add('show');
+  });
+  $('cancelBtn').addEventListener('click', () => modal.classList.remove('show'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
+
+  $('submitLeadBtn').addEventListener('click', async () => {
+    const customerName = $('customer_name').value.trim();
+    const customerPhone = $('customer_phone').value.trim();
+    if (!customerName || !/^0\d{9}$/.test(customerPhone.replace(/[\s.-]/g, ''))) {
+      toast('Nhập đúng tên + SĐT 10 số (bắt đầu 0)', 'err'); return;
+    }
+    $('submitLeadBtn').disabled = true;
+    try {
+      // Chụp ảnh khung demo để gửi kèm Telegram
+      let screenshot = '';
+      if (window.html2canvas) {
+        try {
+          const canvas = await html2canvas(document.querySelector('.iphone'), { backgroundColor: '#111111', scale: IS_TOUCH ? 1.5 : 2 });
+          screenshot = canvas.toDataURL('image/png').split(',')[1];
+        } catch (e) { console.log('chup anh loi:', e); }
+      }
+      const res = await fetch('/api/lead-capture', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          shopName: rv.name, slogan: rv.slogan, phone: rv.phone,
+          primaryColor: rv.color || getComputedStyle($('screen')).getPropertyValue('--acc').trim(),
+          template: curTpl, customerName, customerPhone, screenshot
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast('Đã nhận! VVT Digital sẽ liên hệ anh/chị trong 15 phút', 'ok');
+        modal.classList.remove('show');
+        $('customer_name').value = ''; $('customer_phone').value = '';
+      } else toast('Lỗi gửi: ' + (data.error || 'thử lại'), 'err');
+    } catch (err) { toast('Mất kết nối máy chủ — thử lại', 'err'); }
+    $('submitLeadBtn').disabled = false;
+  });
+
+  function toast(msg, type) {
+    const t = $('toast');
+    t.textContent = msg; t.className = 'toast show ' + type;
+    clearTimeout(t._h); t._h = setTimeout(() => t.className = 'toast', 3500);
+  }
+
+  render();
+</script>
+</body>
+</html>
