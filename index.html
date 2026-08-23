@@ -63,7 +63,7 @@
     <style>
         html { scroll-behavior: smooth; }
         html, body { overflow-x: hidden; max-width: 100%; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FBFBFA; color: #1A1A1A; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: transparent; color: #1A1A1A; }
         .font-serif-luxury { font-family: 'Playfair Display', serif; }
         ::selection { background: #1A1A1A; color: #fff; }
 
@@ -126,8 +126,11 @@
         }
         .bg-fixed::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.88) 40%, rgba(255,255,255,0.92) 100%);
+            background: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.38) 40%, rgba(255,255,255,0.50) 100%);
         }
+        /* ---- CÁC SECTION LỚN TRONG SUỐT ĐỂ ẢNH NỀN XUYÊN QUA ---- */
+        .bg-soft-blue, .bg-soft-warm { background: transparent !important; }
+        section.bg-white, .bg-white.px-6 { background: transparent !important; }
         /* ---- HIỆU ỨNG GỢN NƯỚC KHI CHẠM ---- */
         #ripple-canvas {
             position: fixed; inset: 0; z-index: 9999; pointer-events: none;
