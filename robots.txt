@@ -1,0 +1,36 @@
+# VVT Digital — robots.txt
+# Cho phép AI crawlers (ChatGPT/GPTBot, Claude, Perplexity, Gemini) đọc web
+# để xuất hiện trong kết quả tìm kiếm AI.
+
+User-agent: *
+Allow: /
+
+# AI crawlers được phép
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://vvtdigital.vn/sitemap.xml
