@@ -185,19 +185,37 @@
                     </a>
                 </div>
             </div>
-            <!-- Video trước/sau revamp -->
+            <!-- Quảng cáo: AI Chatbot Hỗ trợ bán hàng 24/7 -->
             <div class="hero-in hero-in-3 relative">
-                <div class="rounded-3xl overflow-hidden shadow-2xl border border-neutral-200/60 aspect-video bg-neutral-100 relative">
-                    <video id="heroVideo" src="images/hero-revamp.mp4" poster="images/after-a.jpg" preload="metadata" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
-                    <button id="heroPlayBtn" class="absolute inset-0 m-auto w-20 h-20 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-2xl transition hover:scale-110" aria-label="Phát video" style="display:none">
-                        <svg viewBox="0 0 24 24" fill="#1A1A1A" class="w-9 h-9 ml-1"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
-                    <span class="absolute top-4 left-4 bg-black/50 backdrop-blur text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Trước</span>
-                    <span class="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full">Sau Revamp</span>
+                <div class="rounded-3xl overflow-hidden shadow-2xl border border-neutral-200/60 relative p-6 md:p-7 text-white" style="background: linear-gradient(150deg,#0b1e3a 0%,#123a6d 55%,#0ea5e9 135%);">
+                    <div class="flex items-center justify-between mb-5">
+                        <span class="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-semibold text-sky-200/90">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Trợ lý AI · Đang trực tuyến
+                        </span>
+                        <span class="text-[10px] uppercase tracking-widest text-white/60">Demo tương tác</span>
+                    </div>
+                    <div class="space-y-3 mb-6 text-sm">
+                        <div class="max-w-[85%] bg-white/10 backdrop-blur rounded-2xl rounded-tl-sm px-4 py-2.5">Chị ơi, em muốn được tư vấn bộ đồ đi tiệc cuối năm ạ</div>
+                        <div class="ml-auto max-w-[85%] bg-gradient-to-r from-sky-400 to-sky-500 rounded-2xl rounded-tr-sm px-4 py-2.5 shadow">Dạ em gợi ý giúp chị nhé! Chị cho em xin chiều cao, cân nặng để em chọn size vừa nhất ạ 🤗</div>
+                        <div class="max-w-[85%] bg-white/10 backdrop-blur rounded-2xl rounded-tl-sm px-4 py-2.5">Cao 1m60 nặng 52kg, mà đừng gợi ý đồ quá bó nha em</div>
+                        <div class="ml-auto max-w-[85%] bg-gradient-to-r from-sky-400 to-sky-500 rounded-2xl rounded-tr-sm px-4 py-2.5 shadow">Dạ vâng, chị để em chốt giúp chị Set 2 — size M, giao về địa chỉ nào cho chị ạ?</div>
+                    </div>
+                    <div class="rounded-2xl bg-white/95 text-neutral-900 px-5 py-4 text-center">
+                        <p class="font-bold text-sm md:text-lg">Trợ Lý Bán Hàng AI Tự Động 24/7</p>
+                        <p class="text-[11px] md:text-xs text-neutral-600 mt-1.5 leading-relaxed">Tư vấn sản phẩm thông minh, gợi ý chuẩn size và chốt đơn tự động trên Website &amp; Zalo OA — không bỏ lỡ bất kỳ khách hàng nào.</p>
+                        <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+                            <a href="https://obviously-centres-arch-recipients.trycloudflare.com" target="_blank" rel="noopener" class="bg-sky-500 hover:bg-sky-600 text-white text-xs uppercase tracking-widest px-6 py-3 rounded-full transition">
+                                ▶ Trải nghiệm giải pháp ngay
+                            </a>
+                            <a href="https://zalo.me/0582283454" target="_blank" class="border border-neutral-300 hover:border-neutral-900 text-neutral-700 hover:text-neutral-900 text-xs uppercase tracking-widest px-6 py-3 rounded-full transition">
+                                Tích hợp cho doanh nghiệp
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="absolute -bottom-5 left-6 bg-white rounded-2xl shadow-xl border border-neutral-100 px-5 py-3 flex items-center gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[11px] uppercase tracking-widest text-neutral-600 font-medium">Video demo: Trước & Sau</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse"></span>
+                    <span class="text-[11px] uppercase tracking-widest text-neutral-600 font-medium">Phản hồi thời gian thực · Tỷ lệ chốt đơn +35%</span>
                 </div>
             </div>
             <!-- Banner THỬ SÁNG TẠO NGAY — bấm mở trang demo riêng (khách có không gian chỉnh sửa thoải mái) -->
@@ -870,25 +888,7 @@
         const mobileMenu = document.getElementById('mobileMenu');
         if (menuBtn) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-        // ---------- Hero video: nút play fallback cho mobile (autoplay bị chặn) ----------
-        const heroVideo = document.getElementById('heroVideo');
-        const heroPlayBtn = document.getElementById('heroPlayBtn');
-        if (heroVideo && heroPlayBtn) {
-            const showPlay = () => { heroPlayBtn.style.display = 'flex'; };
-            const p = heroVideo.play();
-            if (p) p.then(() => { heroPlayBtn.style.display = 'none'; }).catch(showPlay);
-            heroPlayBtn.addEventListener('click', () => {
-                heroVideo.muted = true;
-                const pp = heroVideo.play();
-                if (pp) pp.then(() => { heroPlayBtn.style.display = 'none'; }).catch(() => {});
-            });
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) {
-                    const q = heroVideo.play();
-                    if (q) q.catch(() => {});
-                }
-            });
-        }
+        // ---------- (đã bỏ hero video để trang load nhanh — thay bằng banner AI chatbot) ----------
 
         // ---------- Banner "Thử sáng tạo ngay" — mở trang demo riêng (đã là link, không cần JS toggle) ----------
 
