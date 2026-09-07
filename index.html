@@ -91,7 +91,25 @@
     const chatFab=document.querySelector('.chat-fab'),chatPanel=document.querySelector('.chat-panel'),chatClose=document.querySelector('.chat-close'),chatForm=document.querySelector('.chat-form'),chatInput=chatForm.querySelector('input'),chatMsgs=document.querySelector('.chat-msgs');
     function toggleChat(open){chatPanel.classList.toggle('open',open);chatPanel.setAttribute('aria-hidden',String(!open));if(open)chatInput.focus()}chatFab.addEventListener('click',()=>toggleChat(!chatPanel.classList.contains('open')));chatClose.addEventListener('click',()=>toggleChat(false));
     function addBubble(text,me=false){const el=document.createElement('div');el.className='bubble'+(me?' me':'');el.textContent=text;chatMsgs.append(el);chatMsgs.scrollTop=chatMsgs.scrollHeight}
-    function sendChat(text){if(!text.trim())return;addBubble(text,true);chatInput.value='';setTimeout(()=>addBubble('Phần tư vấn AI đang được kết nối. Anh/chị có thể gửi website trực tiếp qua Zalo 0582 283 454 để được xem trước.'),350)}
+    const CHAT_API='/api/chat';
+    const visitorId=localStorage.getItem('vvt_visitor_id')||(()=>{const id='vvt_'+crypto.randomUUID().replaceAll('-','').slice(0,20);localStorage.setItem('vvt_visitor_id',id);return id})();
+    async function sendChat(text){
+      text=text.trim(); if(!text)return;
+      addBubble(text,true); chatInput.value='';
+      const loading=document.createElement('div'); loading.className='bubble'; loading.textContent='Đang xem thông tin…'; chatMsgs.append(loading); chatMsgs.scrollTop=chatMsgs.scrollHeight;
+      try{
+        const res=await fetch(CHAT_API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({visitor_id:visitorId,message:text})});
+        const data=await res.json().catch(()=>({}));
+        loading.remove();
+        if(data.reply) addBubble(data.reply);
+        else if(data.human_mode) addBubble('Tôi đã chuyển cuộc trò chuyện cho người phụ trách. Anh/chị chờ tôi một chút nhé.');
+        else throw new Error(data.error||'API không trả lời');
+      }catch(err){
+        loading.remove();
+        addBubble('Trợ lý đang tạm gián đoạn. Anh/chị có thể gửi website qua Zalo 0582 283 454 để tôi xem ngay.');
+        console.warn('VVT chat API:',err);
+      }
+    }
     chatForm.addEventListener('submit',e=>{e.preventDefault();sendChat(chatInput.value)});document.querySelectorAll('.chat-quick button').forEach(b=>b.addEventListener('click',()=>sendChat(b.dataset.q)));
   </script>
 </body>
