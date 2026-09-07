@@ -40,3 +40,8 @@ Dùng bố cục dự án và mật độ ảnh của Maison Décor kết hợp 
 8. Dự án hay sản phẩm mới.
 9. Bằng chứng tin cậy: khách hàng, đánh giá, số liệu.
 10. CTA báo giá và footer.
+
+
+## Bản demo chạy được
+
+Mã nguồn prototype nằm trong [`demo/`](./demo). Mở `demo/index.html` để xem bản tĩnh. Bản này phối lưới ảnh kiểu Maison Décor với hero và chuyển động kiểu INCONCEPT.
