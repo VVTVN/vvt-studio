@@ -1,0 +1,10 @@
+const header=document.querySelector('[data-header]');
+const reveals=[...document.querySelectorAll('.reveal')];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.12});
+reveals.forEach(el=>observer.observe(el));
+addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>40);if(!reduce){document.querySelectorAll('[data-parallax]').forEach(el=>{const rect=el.getBoundingClientRect();const rate=Number(el.dataset.parallax);el.style.transform=`translate3d(0,${(innerHeight/2-rect.top)*rate}px,0) scale(1.05)`})}},{passive:true});
+const toggle=document.querySelector('[data-menu-toggle]');
+const nav=document.querySelector('[data-nav]');
+toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
