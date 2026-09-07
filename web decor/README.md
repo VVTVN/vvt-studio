@@ -1,6 +1,15 @@
 # Web Decor
 
-Mẫu website nội thất cao cấp lấy Maison Décor làm tham chiếu trải nghiệm, không sao chép mã nguồn, hình ảnh, nội dung hoặc nhận diện thương hiệu.
+Bộ tham chiếu website nội thất cao cấp. Không sao chép mã nguồn, hình ảnh, nội dung hoặc nhận diện thương hiệu của các trang nguồn.
+
+## Mẫu tham chiếu
+
+- [Maison Décor / Design Specification](./DESIGN-SPEC.md): editorial grid, nhiều hình ảnh nhưng vẫn thoáng và sang.
+- [INCONCEPT](./INCONCEPT-REFERENCE.md): hero video điện ảnh, nhịp cuộn mượt và chuyển section mềm.
+
+## Hướng phối mẫu
+
+Dùng bố cục dự án và mật độ ảnh của Maison Décor kết hợp motion system, hero video và nhịp cuộn của INCONCEPT. Lớp bán hàng của VVT phải rõ hơn cả hai: kết quả, quy trình, CTA và form tư vấn.
 
 ## Mục tiêu
 
@@ -31,5 +40,3 @@ Mẫu website nội thất cao cấp lấy Maison Décor làm tham chiếu trả
 8. Dự án hay sản phẩm mới.
 9. Bằng chứng tin cậy: khách hàng, đánh giá, số liệu.
 10. CTA báo giá và footer.
-
-Xem thêm [DESIGN-SPEC.md](./DESIGN-SPEC.md).
