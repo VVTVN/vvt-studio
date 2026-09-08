@@ -93,15 +93,22 @@
     function addBubble(text,me=false){const el=document.createElement('div');el.className='bubble'+(me?' me':'');el.textContent=text;chatMsgs.append(el);chatMsgs.scrollTop=chatMsgs.scrollHeight}
     const CHAT_API='/api/chat';
     const visitorId=localStorage.getItem('vvt_visitor_id')||(()=>{const id='vvt_'+crypto.randomUUID().replaceAll('-','').slice(0,20);localStorage.setItem('vvt_visitor_id',id);return id})();
+    const CHAT_HISTORY_KEY='vvt_chat_history_v1',HANDOVER_KEY='vvt_handover_notified_v1';
+    let chatHistory=[];
+    try{const saved=JSON.parse(sessionStorage.getItem(CHAT_HISTORY_KEY)||'[]');if(Array.isArray(saved))chatHistory=saved.slice(-8)}catch(_){}
+    function remember(role,text){chatHistory.push({role,text});chatHistory=chatHistory.slice(-8);try{sessionStorage.setItem(CHAT_HISTORY_KEY,JSON.stringify(chatHistory))}catch(_){}}
     async function sendChat(text){
       text=text.trim(); if(!text)return;
+      const previousHistory=chatHistory.slice(-8);
       addBubble(text,true); chatInput.value='';
+      remember('user',text);
       const loading=document.createElement('div'); loading.className='bubble'; loading.textContent='Đang xem thông tin…'; chatMsgs.append(loading); chatMsgs.scrollTop=chatMsgs.scrollHeight;
       try{
-        const res=await fetch(CHAT_API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({visitor_id:visitorId,message:text})});
+        const handoverNotified=sessionStorage.getItem(HANDOVER_KEY)==='1';
+        const res=await fetch(CHAT_API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({visitor_id:visitorId,message:text,history:previousHistory,handover_notified:handoverNotified})});
         const data=await res.json().catch(()=>({}));
         loading.remove();
-        if(data.reply) addBubble(data.reply);
+        if(data.reply){addBubble(data.reply);remember('assistant',data.reply);if(data.handover?.needed&&data.telegram_sent)sessionStorage.setItem(HANDOVER_KEY,'1')}
         else if(data.human_mode) addBubble('Tôi đã chuyển cuộc trò chuyện cho người phụ trách. Anh/chị chờ tôi một chút nhé.');
         else throw new Error(data.error||'API không trả lời');
       }catch(err){
