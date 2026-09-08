@@ -7,6 +7,8 @@ const TPL = {
   6: 'Thời trang'
 };
 
+const WORKER_VERSION = '2026-09-08.1';
+
 const SYSTEM_INSTRUCTION = `
 Bạn là trợ lý tư vấn của VVT Digital, chuyên làm mới website cũ cho doanh nghiệp.
 
@@ -177,7 +179,8 @@ export default {
         ok: true,
         gemini_configured: Boolean(env.GEMINI_API_KEY),
         telegram_configured: Boolean(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
-        model: 'gemini-3.6-flash'
+        model: 'gemini-3.6-flash',
+        version: WORKER_VERSION
       });
     }
 
