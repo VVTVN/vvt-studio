@@ -59,7 +59,9 @@ export function ScrollScene({
         0,
         layout.travel,
       );
-      current = motion ? damp(current, target, elapsed) : target;
+      current = motion
+        ? damp(current, target, elapsed, layout.mobile ? 70 : 155)
+        : target;
       if (Math.abs(target - current) < 0.08) current = target;
       stage.dataset.settled = String(current === target);
       stage.dataset.frames = String(Number(stage.dataset.frames || '0') + 1);
@@ -119,10 +121,9 @@ export function ScrollScene({
           cards[index].dataset.renderedBottom = bounds.bottom.toFixed(2);
           cards[index].dataset.sheetOpacity = bounds.opacity.toFixed(3);
         });
-      const stageBounds = stage.getBoundingClientRect();
-      const hasVisibleMotion = motion && stageBounds.bottom > 0 && stageBounds.top < window.innerHeight
-        && renderQueue.some(({ top }) => top < layout.height && top + layout.imageHeight > layout.gate - 195);
-      if (current !== target || hasVisibleMotion) frame = requestAnimationFrame(paint);
+      // Scroll events wake the renderer. Do not redraw WebGL forever while the
+      // page is idle; that was especially expensive and visibly sticky on iOS.
+      if (current !== target) frame = requestAnimationFrame(paint);
       else {
         frame = 0;
         last = 0;

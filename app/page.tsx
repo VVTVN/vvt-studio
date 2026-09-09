@@ -243,9 +243,13 @@ export default function Home() {
             Giữ điều đáng giá.
             <br />
             Làm lại điều <em>đã cũ.</em>
-            <span className="hero-asterisk" aria-hidden="true">
-              ✳
-            </span>
+            <svg
+              className="hero-asterisk"
+              aria-hidden="true"
+              viewBox="0 0 100 100"
+            >
+              <path d="M50 8v84M8 50h84M20 20l60 60M80 20L20 80" />
+            </svg>
           </h1>
           <div className="intro-bottom">
             <p>

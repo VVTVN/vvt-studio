@@ -14,7 +14,9 @@ export function sceneLayout(width: number, height: number, count: number) {
   const pitch = imageHeight + captionHeight + rowGap;
   const firstTop = height * (mobile ? 0.26 : 0.34);
   const gate = mobile ? 168 : 218;
-  const gain = mobile ? 1.35 : 2;
+  // A shorter, more responsive pinned section on touch screens. The previous
+  // value consumed roughly two full swipes for one visible transition.
+  const gain = mobile ? 2.4 : 2;
   const pole = mobile ? 52 : 82;
   const rows = Math.ceil(count / columns);
   const travel = Math.max(

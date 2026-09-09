@@ -158,13 +158,14 @@ em {
 }
 .hero-asterisk {
   color: var(--blue);
-  font-size: 140px;
-  line-height: 1;
+  width: 140px;
+  height: 140px;
   position: absolute;
   left: calc(100% + 135px);
   top: 38%;
-  font-family: Arial;
-  font-weight: 400;
+  stroke: currentColor;
+  stroke-width: 7;
+  stroke-linecap: round;
 }
 .intro-bottom {
   display: flex;
@@ -658,7 +659,8 @@ footer {
 @media (max-width: 1000px) {
   .hero-asterisk {
     left: calc(100% + 65px);
-    font-size: 110px;
+    width: 110px;
+    height: 110px;
   }
   .header-caption {
     display: none;
@@ -739,7 +741,8 @@ footer {
     letter-spacing: -0.075em;
   }
   .hero-asterisk {
-    font-size: 70px;
+    width: 70px;
+    height: 70px;
     left: calc(100% + 14px);
     top: 52%;
   }
@@ -985,7 +988,8 @@ html[data-motion='off'] *:after {
   .hero-asterisk {
     left: auto;
     right: 0;
-    font-size: 44px;
+    width: 44px;
+    height: 44px;
     top: 58%;
   }
   .intro-kicker {
