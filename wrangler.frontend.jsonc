@@ -1,12 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "vvt-digital-v2",
-  "main": "dist/server/index.js",
+  "name": "vvt-studio-v2",
   "compatibility_date": "2026-09-09",
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": "dist/client",
-    "binding": "ASSETS"
+    "not_found_handling": "single-page-application"
   },
   "routes": [
     {
