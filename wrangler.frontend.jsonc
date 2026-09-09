@@ -6,11 +6,5 @@
     "directory": "dist/client",
     "not_found_handling": "single-page-application"
   },
-  "routes": [
-    {
-      "pattern": "vvtdigital.vn/*",
-      "zone_name": "vvtdigital.vn"
-    }
-  ],
   "workers_dev": true
 }
