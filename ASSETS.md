@@ -1,14 +1,7 @@
-# Placeholder image sources
+# Hình ảnh VVT Digital V2
 
-Stock photography downloaded locally from Unsplash. These are visual placeholders for fictional concepts, not actual client work. No Unseen assets are used.
+Bản VVT Digital V2 sử dụng các tư liệu dự án đã có trong repository VVT Studio.
+Các ảnh mẫu stock ban đầu của giao diện thử nghiệm đã được thay bằng hình ảnh dự án và sản phẩm của VVT.
 
-| Local file | Photographer / subject | Source |
-| --- | --- | --- |
-| architecture.jpg | Osman Rana — concrete architecture | https://unsplash.com/photos/grayscale-photo-of-concrete-building-5LED2xbiKvk |
-| interior.jpg | Spiral staircase | https://unsplash.com/photos/aerial-view-photography-of-spiral-stair-nJ07EiRkMUY |
-| ocean.jpg | Shawn — coastline | https://unsplash.com/photos/aerial-view-of-ocean-touching-land-rA_UtPFE-Tw |
-| product.jpg | Sixteen Miles Out — ceramic vase | https://unsplash.com/photos/a-white-vase-sitting-on-top-of-a-white-table-aFvxASlms2A |
-| desert.jpg | Christian Weiss — dunes | https://unsplash.com/photos/sand-dunes-during-daytime-r8eL7SY3lHA |
-| botanical.jpg | Ira E — leaf texture | https://unsplash.com/photos/a-close-up-view-of-a-green-leaf-q4g5quLfNkI |
-
-Source listings identify these as free Unsplash images. License: https://unsplash.com/license. No affiliation with photographers or depicted locations is implied.
+Không sử dụng hình ảnh, mã nguồn hoặc tài sản thương hiệu lấy từ Unseen.co.
+Unseen chỉ được dùng làm tham chiếu về nhịp điệu trình bày và cảm giác chuyển động.
