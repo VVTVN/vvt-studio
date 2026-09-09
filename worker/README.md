@@ -18,8 +18,10 @@ Các giá trị này chỉ cấu hình tại Cloudflare, không commit lên GitH
 
 ## Cloudflare Builds
 
-Chọn thư mục gốc `worker` và dùng lệnh deploy:
+Repo được triển khai từ thư mục gốc bằng đúng file cấu hình riêng của API:
 
 ```sh
-npx wrangler deploy
+npx wrangler deploy --config worker/wrangler.jsonc
 ```
+
+Cấu hình này giữ API độc lập với ứng dụng giao diện VVT Digital V2.
