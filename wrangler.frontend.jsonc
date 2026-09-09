@@ -11,5 +11,6 @@
       "pattern": "vvtdigital.vn/*",
       "zone_name": "vvtdigital.vn"
     }
-  ]
+  ],
+  "workers_dev": true
 }
