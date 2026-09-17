@@ -2,7 +2,7 @@ import {
   rowOpacity,
   type SceneLayout,
 } from './scroll-geometry';
-import { createBasePositions, foldVertex, projectVertex, FOLD, type FoldOptions } from './per-vertex-fold';
+import { createBasePositions, foldVertex, projectVertex, FOLD, type FoldOptions, type FoldPoint, type ProjectedPoint } from './per-vertex-fold';
 
 const VERTEX = `
 attribute vec3 a_position;
@@ -44,6 +44,10 @@ export class SheetRenderer {
   private basePositions: readonly number[] = [];
   private wireBuffer: WebGLBuffer;
   private wireCount = 0;
+  // Reused across every vertex of every draw() call to avoid per-vertex
+  // allocation in the hot loop (see per-vertex-fold.ts).
+  private foldScratch: FoldPoint = { y: 0, z: 0, shade: 1 };
+  private projectScratch: ProjectedPoint = { x: 0, y: 0, scale: 1, depth: 0 };
   wireframe = false;
   foldOptions: FoldOptions = { ...FOLD };
   constructor(private canvas: HTMLCanvasElement) {
@@ -228,9 +232,14 @@ export class SheetRenderer {
           v = j / NY,
           baseOffset = (j * (NX + 1) + i) * 3,
           localY = layout.imageHeight / 2 - this.basePositions[baseOffset + 1],
-          p = motion
-            ? foldVertex(localY, layoutTop, distance, layout.imageHeight, layout.gate, this.foldOptions, u)
-            : { y: top + localY, z: 0, shade: 1 };
+          p = this.foldScratch;
+        if (motion)
+          foldVertex(p, localY, layoutTop, distance, layout.imageHeight, layout.gate, this.foldOptions, u);
+        else {
+          p.y = top + localY;
+          p.z = 0;
+          p.shade = 1;
+        }
         const foldedLength = Math.max(0, Math.min(layout.imageHeight, layout.gate - layoutTop + distance));
         const past = Math.max(0, foldedLength - localY);
         const ramp = Math.min(1, past / 85);
@@ -268,7 +277,7 @@ export class SheetRenderer {
         p.y += softness * (bend + cornerTurn);
         const worldX = x + layout.cardWidth / 2 + this.basePositions[baseOffset]
           + flutter * 3 + water * 0.6 - softness * edge * corner * topBand * 12;
-        const drawn = projectVertex(worldX, p.y, p.z, layout.width / 2, layout.gate, this.foldOptions.perspective);
+        const drawn = projectVertex(this.projectScratch, worldX, p.y, p.z, layout.width / 2, layout.gate, this.foldOptions.perspective);
         this.values[pos++] = drawn.x;
         this.values[pos++] = drawn.y;
         this.values[pos++] = drawn.depth;

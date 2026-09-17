@@ -8,21 +8,29 @@ import {
   type SceneLayout,
 } from '@/lib/scroll-geometry';
 import { SheetRenderer, type Texture } from '@/lib/sheet-renderer';
+import type { VirtualScrollApi } from '@/lib/use-virtual-scroll';
 
 export function ScrollScene({
   children,
   motion,
   resetKey,
+  vs,
+  ready,
 }: {
   children: ReactNode;
   motion: boolean;
   resetKey: string;
+  vs: VirtualScrollApi;
+  ready: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const stage = ref.current,
       section = stage?.parentElement;
-    if (!stage || !section) return;
+    // `vs` isn't backed by a real VirtualScroll instance until `ready` — see
+    // use-virtual-scroll.ts for why relying on effect ordering alone isn't
+    // enough (this effect otherwise fires before that one exists).
+    if (!stage || !section || !vs || !ready) return;
     const canvas = stage.querySelector<HTMLCanvasElement>('canvas')!;
     const cards = [...stage.querySelectorAll<HTMLElement>('.project-card')];
     const wireframe = new URLSearchParams(window.location.search).get('foldDebug') === 'wireframe';
@@ -50,10 +58,11 @@ export function ScrollScene({
       if (disposed) return;
       const elapsed = last ? Math.min(time - last, 64) : 16.67;
       last = time;
-      // Scroll progress is forward when page scrollY increases. Keep the
-      // sign explicit here: rowTop subtracts this distance, so down advances
-      // to the next row and up reverses back to the previous row.
-      const scrollProgress = sectionStart - window.scrollY;
+      const vsCurrent = vs.getCurrent();
+      // Scroll progress is forward when the virtual scroll position increases.
+      // Keep the sign explicit here: rowTop subtracts this distance, so down
+      // advances to the next row and up reverses back to the previous row.
+      const scrollProgress = sectionStart - vsCurrent;
       const target = clamp(
         -scrollProgress * layout.gain,
         0,
@@ -63,14 +72,21 @@ export function ScrollScene({
         ? damp(current, target, elapsed, layout.mobile ? 70 : 155)
         : target;
       if (Math.abs(target - current) < 0.08) current = target;
+      // Emulates `position: sticky; top: 0` inside a spacer of height
+      // `layout.scrollLength` — the stage otherwise sits at its normal
+      // (transformed-with-the-track) position, `rawY`. There is no real
+      // scroll container for native sticky to attach to once the page is
+      // virtually scrolled, so the clamp is done by hand.
+      const rawY = sectionStart - vsCurrent;
+      const pinCompensation = -clamp(rawY, -layout.scrollLength, 0);
+      stage.style.transform = `translate3d(0, ${pinCompensation}px, 0)`;
       stage.dataset.settled = String(current === target);
       stage.dataset.frames = String(Number(stage.dataset.frames || '0') + 1);
       stage.dataset.distance = current.toFixed(2);
       stage.dataset.target = target.toFixed(2);
       stage.dataset.cycle = (current / layout.pitch).toFixed(4);
       stage.dataset.pinned = String(
-        window.scrollY >= sectionStart &&
-          window.scrollY <= sectionStart + layout.scrollLength,
+        vsCurrent >= sectionStart && vsCurrent <= sectionStart + layout.scrollLength,
       );
       renderer?.begin();
       const renderQueue: {
@@ -121,8 +137,9 @@ export function ScrollScene({
           cards[index].dataset.renderedBottom = bounds.bottom.toFixed(2);
           cards[index].dataset.sheetOpacity = bounds.opacity.toFixed(3);
         });
-      // Scroll events wake the renderer. Do not redraw WebGL forever while the
-      // page is idle; that was especially expensive and visibly sticky on iOS.
+      // The virtual-scroll's own frame loop wakes us via subscribe(); do not
+      // redraw WebGL forever while idle — that was especially expensive and
+      // visibly sticky on iOS.
       if (current !== target) frame = requestAnimationFrame(paint);
       else {
         frame = 0;
@@ -136,7 +153,7 @@ export function ScrollScene({
       const oldLayout = layout,
         oldStart = sectionStart;
       layout = sceneLayout(stage.clientWidth, window.innerHeight, cards.length);
-      sectionStart = section.getBoundingClientRect().top + window.scrollY;
+      sectionStart = vs.getOffsetTop(stage);
       section.style.height = `${layout.height + layout.scrollLength}px`;
       stage.style.height = `${layout.height}px`;
       stage.style.setProperty('--fold-gate', `${layout.gate}px`);
@@ -174,10 +191,11 @@ export function ScrollScene({
             });
         }
       });
+      const vsCurrent = vs.getCurrent();
       if (
         oldLayout &&
-        window.scrollY >= oldStart &&
-        window.scrollY <= oldStart + oldLayout.scrollLength
+        vsCurrent >= oldStart &&
+        vsCurrent <= oldStart + oldLayout.scrollLength
       ) {
         const progress = clamp(
           current / oldLayout.pitch,
@@ -185,13 +203,10 @@ export function ScrollScene({
           oldLayout.rows + 1,
         );
         current = clamp(progress * layout.pitch, 0, layout.travel);
-        window.scrollTo({
-          top: sectionStart + current / layout.gain,
-          behavior: 'instant',
-        });
+        vs.scrollTo(sectionStart + current / layout.gain, { instant: true });
       } else {
         current = clamp(
-          (window.scrollY - sectionStart) * layout.gain,
+          (vsCurrent - sectionStart) * layout.gain,
           0,
           layout.travel,
         );
@@ -210,12 +225,10 @@ export function ScrollScene({
       if (index < 0) return;
       const top = rowTop(layout, index, current);
       if (top < layout.gate || top + layout.imageHeight > layout.height) {
-        window.scrollTo({
-          top:
-            sectionStart +
-            (Math.floor(index / layout.columns) * layout.pitch) / layout.gain,
-          behavior: 'instant',
-        });
+        vs.scrollTo(
+          sectionStart + (Math.floor(index / layout.columns) * layout.pitch) / layout.gain,
+          { instant: true },
+        );
         schedule();
       }
     };
@@ -224,19 +237,19 @@ export function ScrollScene({
       stage.dataset.renderer = 'fallback';
     };
     canvas.addEventListener('webglcontextlost', contextLost);
-    window.addEventListener('scroll', schedule, { passive: true });
+    const unsubscribe = vs.subscribe(schedule);
     window.addEventListener('resize', resize);
     stage.addEventListener('focusin', focus);
     return () => {
       disposed = true;
       cancelAnimationFrame(frame);
       renderer?.dispose();
-      window.removeEventListener('scroll', schedule);
+      unsubscribe();
       window.removeEventListener('resize', resize);
       stage.removeEventListener('focusin', focus);
       canvas.removeEventListener('webglcontextlost', contextLost);
     };
-  }, [motion, resetKey]);
+  }, [motion, resetKey, vs, ready]);
   return (
     <div className="scroll-stage" ref={ref}>
       <canvas className="sheet-canvas" aria-hidden="true" />
@@ -244,4 +257,3 @@ export function ScrollScene({
     </div>
   );
 }
-

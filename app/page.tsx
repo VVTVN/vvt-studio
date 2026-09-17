@@ -1,23 +1,38 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { ScrollScene } from '@/components/scroll-scene';
+import { useVirtualScrollEngine } from '@/lib/use-virtual-scroll';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-const projects = [
+type Project = {
+  id: string;
+  name: string;
+  line: string;
+  category: string;
+  type: string;
+  image: string;
+  year: string;
+  description: string;
+  href?: string;
+  linkLabel?: string;
+};
+const projects: Project[] = [
   {
     id: '01',
-    name: 'Phú Hòa',
-    line: 'Từ ảnh chụp thật đến hình ảnh bán hàng.',
-    category: 'Website',
-    type: 'Định hướng · Nội dung · Website',
-    image: 'architecture',
+    name: 'Mô hình sản phẩm 3D',
+    line: 'Từ một tấm ảnh, dựng lại thành mô hình bung tách từng chi tiết.',
+    category: 'Hình ảnh',
+    type: 'Mô hình 3D · Tương tác · Bung lắp linh kiện',
+    image: 'phone-stand-3d',
     year: '2026',
+    href: '/mo-hinh-3d/',
+    linkLabel: 'Xem mô hình 3D',
     description:
-      'VVT giữ nguyên sản phẩm và câu chuyện của thương hiệu, sau đó làm lại cách trình bày để khách hàng dễ hiểu, dễ tin và dễ liên hệ hơn.',
+      'VVT dựng lại sản phẩm thành mô hình 3D có thể xoay, bung ra và lắp lại từng linh kiện — giúp khách hàng thấy rõ chất lượng và cấu tạo bên trong trước khi quyết định mua.',
   },
   {
     id: '02',
@@ -76,63 +91,84 @@ const projects = [
   },
 ];
 const filters = ['Tất cả', 'Website', 'Hình ảnh', 'Nội dung', 'Tự động hóa'];
-type Project = (typeof projects)[number];
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [open, setOpen] = useState(false);
+  const linkLabel = project.linkLabel ?? 'Xem dự án';
+  const cardContent = (
+    <div className="image-frame">
+      <div className="image-motion">
+        <img
+          src={`/images/${project.image}.jpg`}
+          alt={`${project.name} — ${project.line}`}
+          width="1200"
+          height="900"
+          loading={index < 2 ? 'eager' : 'lazy'}
+        />
+      </div>
+      <span className="image-index">F—{project.id}</span>
+      <span className="view-project">
+        {linkLabel} <span>↗</span>
+      </span>
+      <span className="image-wordmark">{project.name}</span>
+    </div>
+  );
+  const caption = (
+    <div className="card-caption">
+      <div>
+        <h2>{project.name}</h2>
+        <p>{project.line}</p>
+      </div>
+      <span className="card-category">{project.category}</span>
+      <span className="card-arrow" aria-hidden="true">
+        ↗
+      </span>
+    </div>
+  );
 
   return (
     <>
       <article className={`project-card card-${index % 2}`}>
-        <button
-          className="project-link"
-          onClick={() => setOpen(true)}
-          aria-label={`Xem dự án ${project.name}`}
-        >
-          <div className="image-frame">
-            <div className="image-motion">
-              <img
-                src={`/images/${project.image}.jpg`}
-                alt={`${project.name} — ${project.line}`}
-                width="1200"
-                height="900"
-                loading={index < 2 ? 'eager' : 'lazy'}
-              />
-            </div>
-            <span className="image-index">F—{project.id}</span>
-            <span className="view-project">
-              Xem dự án <span>↗</span>
-            </span>
-            <span className="image-wordmark">{project.name}</span>
-          </div>
-          <div className="card-caption">
-            <div>
-              <h2>{project.name}</h2>
-              <p>{project.line}</p>
-            </div>
-            <span className="card-category">{project.category}</span>
-            <span className="card-arrow" aria-hidden="true">
-              ↗
-            </span>
-          </div>
-        </button>
+        {project.href ? (
+          <a
+            className="project-link"
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${linkLabel}: ${project.name}`}
+          >
+            {cardContent}
+            {caption}
+          </a>
+        ) : (
+          <button
+            className="project-link"
+            onClick={() => setOpen(true)}
+            aria-label={`Xem dự án ${project.name}`}
+          >
+            {cardContent}
+            {caption}
+          </button>
+        )}
       </article>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="project-dialog">
-          <div className="detail-image">
-            <img src={`/images/${project.image}.jpg`} alt={project.name} />
-          </div>
-          <div className="detail-body">
-            <span className="eyebrow">DỰ ÁN VVT / {project.year}</span>
-            <DialogTitle>{project.name}</DialogTitle>
-            <DialogDescription>{project.description}</DialogDescription>
-            <div className="detail-meta">
-              <span>{project.type}</span>
-              <span>VVT DIGITAL</span>
+      {!project.href && (
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent className="project-dialog">
+            <div className="detail-image">
+              <img src={`/images/${project.image}.jpg`} alt={project.name} />
             </div>
-            <p className="demo-note">Giải pháp được điều chỉnh theo dữ liệu và mục tiêu thực tế của từng doanh nghiệp.</p>
-          </div>
-        </DialogContent>
-      </Dialog>
+            <div className="detail-body">
+              <span className="eyebrow">DỰ ÁN VVT / {project.year}</span>
+              <DialogTitle>{project.name}</DialogTitle>
+              <DialogDescription>{project.description}</DialogDescription>
+              <div className="detail-meta">
+                <span>{project.type}</span>
+                <span>VVT DIGITAL</span>
+              </div>
+              <p className="demo-note">Giải pháp được điều chỉnh theo dữ liệu và mục tiêu thực tế của từng doanh nghiệp.</p>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 }
@@ -146,6 +182,7 @@ export default function Home() {
   const [motion, setMotion] = useState(true);
   const [draft, setDraft] = useState({ name: '', email: '', idea: '' });
   const sectionRef = useRef<HTMLElement>(null);
+  const { viewportRef, trackRef, vs, ready } = useVirtualScrollEngine(motion);
   const visible = projects.filter(
     (p) => filter === 'Tất cả' || p.category === filter,
   );
@@ -171,11 +208,10 @@ export default function Home() {
   }, [motion]);
   function changeFilter(next: string) {
     const section = sectionRef.current;
-    if (section && section.getBoundingClientRect().top < 0)
-      window.scrollTo({
-        top: section.getBoundingClientRect().top + window.scrollY,
-        behavior: 'instant',
-      });
+    if (section) {
+      const top = vs.getOffsetTop(section);
+      if (vs.getCurrent() > top) vs.scrollTo(top, { instant: true });
+    }
     setFilter(next);
     setFilterOpen(false);
   }
@@ -184,13 +220,23 @@ export default function Home() {
     setSent(false);
     setSaveError('');
   }
+  function goTo(e: MouseEvent, id: string) {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) vs.scrollToEl(el);
+  }
   return (
     <>
-      <a className="skip-link" href="#work">
+      <a className="skip-link" href="#work" onClick={(e) => goTo(e, 'work')}>
         Đi đến dự án
       </a>
       <header className="site-header">
-        <a className="logo" href="#top" aria-label="Trang chủ VVT Digital">
+        <a
+          className="logo"
+          href="#top"
+          aria-label="Trang chủ VVT Digital"
+          onClick={(e) => goTo(e, 'top')}
+        >
           VVT<span>®</span>
         </a>
         <span className="header-caption">
@@ -199,10 +245,12 @@ export default function Home() {
           Công nghệ vừa đủ.
         </span>
         <nav aria-label="Điều hướng chính">
-          <a className="active" href="#work">
+          <a className="active" href="#work" onClick={(e) => goTo(e, 'work')}>
             Dự án <sup>06</sup>
           </a>
-          <a href="#studio">Cách làm</a>
+          <a href="#studio" onClick={(e) => goTo(e, 'studio')}>
+            Cách làm
+          </a>
           <button onClick={openContact}>
             Trao đổi <span>↗</span>
           </button>
@@ -218,10 +266,22 @@ export default function Home() {
       </header>
       {menu && (
         <nav className="mobile-menu" aria-label="Điều hướng di động">
-          <a href="#work" onClick={() => setMenu(false)}>
+          <a
+            href="#work"
+            onClick={(e) => {
+              goTo(e, 'work');
+              setMenu(false);
+            }}
+          >
             Dự án <sup>06</sup>
           </a>
-          <a href="#studio" onClick={() => setMenu(false)}>
+          <a
+            href="#studio"
+            onClick={(e) => {
+              goTo(e, 'studio');
+              setMenu(false);
+            }}
+          >
             Cách làm
           </a>
           <button
@@ -234,6 +294,8 @@ export default function Home() {
           </button>
         </nav>
       )}
+      <div className="vs-viewport" ref={viewportRef}>
+      <div className="vs-track" ref={trackRef}>
       <main id="top">
         <section className="intro" aria-label="Giới thiệu">
           <div className="intro-kicker">
@@ -243,20 +305,13 @@ export default function Home() {
             Giữ điều đáng giá.
             <br />
             Làm lại điều <em>đã cũ.</em>
-            <svg
-              className="hero-asterisk"
-              aria-hidden="true"
-              viewBox="0 0 100 100"
-            >
-              <path d="M50 8v84M8 50h84M20 20l60 60M80 20L20 80" />
-            </svg>
           </h1>
           <div className="intro-bottom">
             <p>
               VVT giữ lại dữ liệu, lịch sử và giá trị cũ.
               <br className="desktop-break" /> Sau đó làm lại cách khách hàng nhìn thấy chúng.
             </p>
-            <a href="#work" className="scroll-cue">
+            <a href="#work" className="scroll-cue" onClick={(e) => goTo(e, 'work')}>
               CUỘN ĐỂ XEM <span>↓</span>
             </a>
           </div>
@@ -267,7 +322,7 @@ export default function Home() {
           ref={sectionRef}
           aria-labelledby="work-heading"
         >
-          <ScrollScene motion={motion} resetKey={filter}>
+          <ScrollScene motion={motion} resetKey={filter} vs={vs} ready={ready}>
             <div className="work-toolbar">
               <div className="work-heading">
                 <span className="section-number">01 /</span>
@@ -356,24 +411,19 @@ export default function Home() {
             <span>↗</span>
           </button>
           <div className="footer-bottom">
-            <a className="logo" href="#top">
+            <a className="logo" href="#top" onClick={(e) => goTo(e, 'top')}>
               VVT<span>®</span>
             </a>
             <span>© VVT DIGITAL 2026</span>
             <span>WEBSITE · HÌNH ẢNH · TỰ ĐỘNG HÓA</span>
-            <button
-              onClick={() =>
-                window.scrollTo({
-                  top: 0,
-                  behavior: motion ? 'smooth' : 'instant',
-                })
-              }
-            >
+            <button onClick={() => vs.scrollTo(0)}>
               Lên đầu trang ↑
             </button>
           </div>
         </footer>
       </main>
+      </div>
+      </div>
       <button
         className="motion-toggle"
         onClick={() => setMotion(!motion)}

@@ -156,17 +156,6 @@ em {
 .intro h1 em {
   letter-spacing: -0.075em;
 }
-.hero-asterisk {
-  color: var(--blue);
-  width: 140px;
-  height: 140px;
-  position: absolute;
-  left: calc(100% + 135px);
-  top: 38%;
-  stroke: currentColor;
-  stroke-width: 7;
-  stroke-linecap: round;
-}
 .intro-bottom {
   display: flex;
   justify-content: space-between;
@@ -657,11 +646,6 @@ footer {
   }
 }
 @media (max-width: 1000px) {
-  .hero-asterisk {
-    left: calc(100% + 65px);
-    width: 110px;
-    height: 110px;
-  }
   .header-caption {
     display: none;
   }
@@ -739,12 +723,6 @@ footer {
     margin: 31px 0 30px;
     line-height: 1;
     letter-spacing: -0.075em;
-  }
-  .hero-asterisk {
-    width: 70px;
-    height: 70px;
-    left: calc(100% + 14px);
-    top: 52%;
   }
   .intro-bottom {
     display: block;
@@ -984,13 +962,6 @@ html[data-motion='off'] *:after {
   .intro h1 {
     width: 100%;
     font-size: clamp(52px, 15vw, 100px);
-  }
-  .hero-asterisk {
-    left: auto;
-    right: 0;
-    width: 44px;
-    height: 44px;
-    top: 58%;
   }
   .intro-kicker {
     max-width: 260px;
@@ -1251,5 +1222,41 @@ html::-webkit-scrollbar {
   .work-section > .work-end {
     left: 6%;
     right: 6%;
+  }
+}
+/* Virtual scroll (see lib/virtual-scroll.ts): the viewport is fixed below
+   the header and .vs-track is moved by a JS transform instead of native
+   document scrolling, so `position: sticky` has nothing to attach to any
+   more — the fold stage's pin is emulated by hand in scroll-scene.tsx.
+   Until the engine mounts (`vs-ready` on <html>), the page is a plain
+   scrollable document using the sticky rules above as a safe fallback. */
+html.vs-ready,
+html.vs-ready body {
+  height: 100%;
+  overflow: hidden;
+}
+.vs-track {
+  will-change: transform;
+}
+html.vs-ready .vs-viewport {
+  position: fixed;
+  top: 94px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+html.vs-ready .scroll-stage {
+  position: relative;
+  top: auto;
+}
+@media (max-width: 1000px) {
+  html.vs-ready .vs-viewport {
+    top: 80px;
+  }
+}
+@media (max-width: 699px) {
+  html.vs-ready .vs-viewport {
+    top: 74px;
   }
 }

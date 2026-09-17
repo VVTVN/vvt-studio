@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="data:," />
+  <title>Mô hình sản phẩm 3D — VVT Digital</title>
+  <style>
+    html,body{margin:0;height:100%;overflow:hidden;background:#d8d6d0;font:13px system-ui;color:#eee}
+    canvas{display:block}
+    #panel{position:fixed;left:16px;top:16px;background:#15171add;padding:14px 16px;border-radius:10px;line-height:1.5;max-width:330px;box-shadow:0 6px 24px #0006;backdrop-filter:blur(8px)}
+    #panel b{font-size:15px;letter-spacing:.3px} #panel span{color:#bbb}
+    .btn-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+    button{padding:7px 11px;background:#2a2d32;color:#eee;border:1px solid #555;border-radius:5px;cursor:pointer;font:12px system-ui;transition:all .15s}
+    button:hover{background:#444;border-color:#888}
+    button.active{background:#e8572a;border-color:#e8572a;color:#fff}
+    .sep{width:100%;height:1px;background:#333;margin:8px 0}
+    #slider-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+    #slider-row input{flex:1;accent-color:#e8572a}
+    #slider-label{color:#bbb;font-size:11px;min-width:32px;text-align:right}
+    #status{color:#e8572a;font-size:11px;margin-top:4px;min-height:14px}
+  </style>
+</head>
+<body>
+  <div id="panel">
+    <b>Mô hình sản phẩm 3D</b><br>
+    <span>Tương tác • Kéo thả linh kiện tự do • Click chọn</span>
+    <div class="btn-row">
+      <button data-view="hero" class="active">📐 3/4 View</button>
+      <button data-view="front">Front</button>
+      <button data-view="side">Side</button>
+      <button data-view="rear">Rear</button>
+      <button data-view="top">Top</button>
+    </div>
+    <div class="sep"></div>
+    <div class="btn-row">
+      <button id="btn-explode">💥 Bung ra</button>
+      <button id="btn-assemble">🔧 Lắp lại</button>
+      <button id="btn-random">🎲 Bung kiểu mới</button>
+      <button id="btn-toggle">⚡ Toggle</button>
+    </div>
+    <div class="sep"></div>
+    <div class="btn-row">
+      <button id="btn-cinematic" style="background:#075985;border-color:#38bdf8;color:#fff;font-weight:600">⚙️ Lắp ráp công nghệ (C)</button>
+      <button id="btn-record" style="background:#1e3a8a;border-color:#3b82f6;color:#fff;font-weight:600">🎥 Quay Video (V)</button>
+    </div>
+    <div id="cine-bar" style="display:none;height:4px;background:#333;border-radius:2px;margin-top:8px;overflow:hidden">
+      <div id="cine-fill" style="width:0%;height:100%;background:linear-gradient(90deg,#38bdf8,#e0f2fe);box-shadow:0 0 10px #4fc3f7;transition:width .1s linear"></div>
+    </div>
+    <div id="status"></div>
+  </div>
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+  <script type="module" src="./phone-stand-dev.js"></script>
+</body>
+</html>
